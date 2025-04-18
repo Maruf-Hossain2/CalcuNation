@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Scatter Plot</title>
+    <link rel="stylesheet" href="Graph.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <h1><i class="fas fa-braille"></i> Scatter Plot</h1>
+            </div>
+            <div class="header-right">
+                <a href="/pages/graph.html" class="back-home-btn"><i class="fas fa-home"></i> Go Back Home</a>
+            </div>
+        </header>
+
+        <section class="intro">
+            <p>Explore relationships in your data with this interactive and futuristic scatter plot explorer.</p>
+        </section>
+
+        <section class="graph-input">
+            <form id="data-form">
+                <div class="input-group">
+                    <label for="data-x"><i class="fas fa-arrow-right"></i> X Values (comma or space-separated):</label>
+                    <input type="text" id="data-x" name="data-x" placeholder="e.g., 1, 2, 3, 4, 5">
+                    <p class="input-hint">Enter X values for the scatter plot, separated by commas or spaces.</p>
+                </div>
+
+                <div class="input-group">
+                    <label for="data-y"><i class="fas fa-arrow-up"></i> Y Values (comma or space-separated):</label>
+                    <input type="text" id="data-y" name="data-y" placeholder="e.g., 2, 4, 6, 8, 10">
+                    <p class="input-hint">Enter Y values for the scatter plot, separated by commas or spaces.</p>
+                </div>
+
+                <button type="submit"><i class="fas fa-project-diagram"></i> Update Plot</button>
+            </form>
+        </section>
+
+        <section class="graph-preview">
+            <canvas id="scatterPlot"></canvas>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="scatterPlots.js"></script>
+</body>
+
+</html>

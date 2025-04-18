@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+ <html lang="en">
+ 
+
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CalcuNation - Educational Calculator Platform</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+ </head>
+ 
+
+ <body>
+  <div class="container">
+  <!-- Header with login/logout and bookmark -->
+  <header>
+  <div class="logo">CalcuNation</div>
+  <div class="login-section">
+  <button id="bookmark-btn" style="display: none;"><i class="fas fa-bookmark"></i>
+  Bookmarks</button>
+  <a href="login.html" id="login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+  <button id="logout-btn" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+  </div>
+  </header>
+ 
+
+  <!-- Hero Section -->
+  <section class="hero">
+  <h1>Unlock Your Mathematical Potential</h1>
+  <p>Explore a wide range of calculators and formulas to ace your studies.</p>
+  <!-- More Math Symbols -->
+  <div class="math-animation">
+  <span>∑</span>
+  <span>∫</span>
+  <span>π</span>
+  <span>√</span>
+  <span>∞</span>
+  <span>∂</span>
+  <span>∇</span>
+  <span>Δ</span>
+  <span>⊕</span>
+  <span>⊗</span>
+  <span>∈</span>
+  <span>∉</span>
+  <span>∏</span>
+  <span>Ω</span>
+  <span>Ψ</span>
+  <span>ζ</span>
+  <span>ξ</span>
+  <span>1</span>
+  <span>2</span>
+  <span>3</span>
+  <span>4</span>
+  <span>5</span>
+  <span>6</span>
+  <span>7</span>
+  <span>8</span>
+  <span>9</span>
+  <span>0</span>
+  <span>+</span>
+  <span>-</span>
+  <span>×</span>
+  <span>÷</span>
+  <span>=</span>
+  <span>^</span>
+  <span>√</span>
+  <span>( )</span>
+  <span>| |</span>
+  <span>σ</span>
+  <span>α</span>
+  <span>β</span>
+  <span>θ</span>
+  <span>Φ</span>
+  <span>λ</span>
+  <span>μ</span>
+  <span>φ</span>
+  <span>ψ</span>
+  <span>Γ</span>
+  <span>Λ</span>
+  <span>Θ</span>
+  </div>
+  </div>
+  </section>
+ 
+
+  <!-- Search section -->
+  <div class="search-container">
+    <div class="search-input-wrapper">
+    <input type="text" placeholder="Enter your search query..." class="search-bar" id="search-input">
+    <i class="fas fa-search search-icon"></i>
+    </div>
+    <button class="search-btn" id="search-btn">
+    <i class="fas fa-arrow-right"></i>
+    </button>
+    <div id="instant-results" class="instant-results"></div>
+   </div>   
+ 
+
+  <!-- Subject buttons grid -->
+  <div class="subjects-grid">
+  <a href="pages/physics.html" class="subject-card animate__animated animate__fadeInUp"
+  style="animation-delay: 0.2s">
+  <i class="fas fa-atom"></i>
+  <span>Physics</span>
+  </a>
+  <a href="pages/chemistry.html" class="subject-card animate__animated animate__fadeInUp"
+  style="animation-delay: 0.3s">
+  <i class="fas fa-flask"></i>
+  <span>Chemistry</span>
+  </a>
+  <a href="pages/biology.html" class="subject-card animate__animated animate__fadeInUp"
+  style="animation-delay: 0.4s">
+  <i class="fas fa-dna"></i>
+  <span>Biology</span>
+  </a>
+  <a href="pages/algebra.html" class="subject-card animate__animated animate__fadeInUp"
+  style="animation-delay: 0.5s">
+  <i class="fas fa-square-root-alt"></i>
+  <span>Algebra</span>
+  </a>
+  <a href="pages/calculus.html" class="subject-card animate__animated animate__fadeInUp"
+  style="animation-delay: 0.6s">
+  <i class="fas fa-wave-square"></i>
+  <span>Calculus</span>
+  </a>
+  <a href="pages/statistics.html" class="subject-card animate__animated animate__fadeInUp"
+  style="animation-delay: 0.7s">
+  <i class="fas fa-chart-bar"></i>
+  <span>Statistics</span>
+  </a>
+  <a href="pages/conversion.html" class="subject-card animate__animated animate__fadeInUp"
+  style="animation-delay: 0.8s">
+  <i class="fas fa-exchange-alt"></i>
+  <span>Conversion</span>
+  </a>
+  <a href="pages/graph.html" class="subject-card animate__animated animate__fadeInUp"
+  style="animation-delay: 0.9s">
+  <i class="fas fa-chart-line"></i>
+  <span>Graph</span>
+  </a>
+  </div>
+  </div>
+ 
+
+  <script src="script.js"></script>
+ </body>
+ </html>

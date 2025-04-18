@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Mole Formula Calculator</title>
+ <link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link
+ href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+ rel="stylesheet">
+ <link rel="stylesheet" href="mole_calculator.css">
+</head>
+
+
+<body>
+ <div class="container">
+ <header class="header">
+ <div class="header-left">
+ <h1 class="title"><i class="fas fa-atom"></i> Mole Formula Calculator</h1>
+ </div>
+ <div class="header-right">
+ <a href="/pages/chemistry.html" class="back-home-btn"><i class="fas fa-arrow-left"></i> Back to
+ Physics</a>
+ </div>
+ </header>
+
+
+ <main class="formula-dashboard">
+ <div class="formula-card calculation-inputs">
+ <h2><i class="fas fa-calculator"></i> Calculation Inputs</h2>
+
+
+ <div class="equation-selector">
+ <legend>Select Equation</legend>
+ <label title="n = m / M: Calculates the number of moles (n) from mass (m) and molar mass (M).">
+ <input type="radio" name="equationType" value="massMolarMass" checked
+ onchange="updateForm()" />
+ n = m / M
+ </label>
+ <label title="C = n / V: Calculates concentration (C) from the number of moles (n) and volume (V).">
+ <input type="radio" name="equationType" value="concentrationVolume" onchange="updateForm()" />
+ C = n / V
+ </label>
+ </div>
+
+
+ <div class="calc-mode-selector">
+ <legend>Select Calculation Type</legend>
+ <div id="calc-mode-options">
+ <!-- Calculation mode options generated dynamically -->
+ </div>
+ </div>
+
+
+ <div class="input-fields" id="input-fields">
+ <div class="input-group" id="mass-group">
+ <label for="mass"><i class="fas fa-weight"></i> Mass (m) [grams]:</label>
+ <input type="number" id="mass" name="mass" placeholder="Enter mass (g)" />
+ </div>
+ <div class="input-group" id="molarMass-group">
+ <label for="molarMass"><i class="fas fa-atom"></i> Molar Mass (M) [g/mol]:</label>
+ <input type="number" id="molarMass" name="molarMass" placeholder="Enter molar mass (g/mol)" />
+ </div>
+ <div class="input-group" id="moles-group">
+ <label for="moles"><i class="fas fa-flask"></i> Moles (n) [mol]:</label>
+ <input type="number" id="moles" name="moles" placeholder="Enter moles (mol)" />
+ </div>
+ <div class="input-group" id="concentration-group" style="display: none;">
+ <label for="concentration"><i class="fas fa-percent"></i> Concentration (C) [mol/L]:</label>
+ <input type="number" id="concentration" name="concentration"
+ placeholder="Enter concentration (mol/L)" />
+ </div>
+ <div class="input-group" id="volume-group" style="display: none;">
+ <label for="volume"><i class="fas fa-cube"></i> Volume (V) [Liters]:</label>
+ <input type="number" id="volume" name="volume" placeholder="Enter volume (L)" />
+ </div>
+ </div>
+
+
+ <button type="button" onclick="calculate()">
+ <i class="fas fa-calculator"></i> Calculate
+ </button>
+ <div id="result" class="result"></div>
+ </div>
+
+
+ <div class="formula-card step-by-step-solution">
+ <h2><i class="fas fa-route"></i> Step-by-Step Solution</h2>
+ <div class="solution-content">
+ <p id="formula-highlight"></p>
+ <ol id="step-list"></ol>
+ <div class="example">
+ <i class="fas fa-flask"></i>
+ <strong id="example-text"></strong>
+ </div>
+ </div>
+ </div>
+
+
+ <div class="formula-card formula-description">
+ <h2><i class="fas fa-info-circle"></i> Description of the Formula</h2>
+ <div id="formula-description-text"></div>
+ </div>
+
+
+ <div class="formula-card formula-origin">
+ <h2><i class="fas fa-book"></i> Formula Origin</h2>
+ <div id="formula-origin-text"></div>
+ </div>
+
+  <!-- Video Tutorial Card -->
+  <section class="formula-card video-tutorial">
+    <h2><i class="fab fa-youtube"></i> Video Tutorial</h2>
+    <div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/SPE_jKZS9So" title="YouTube video player"
+    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+    </div>
+    </section>
+
+
+ <div class="formula-card quizzes-practice-problems">
+ <h2><i class="fas fa-question-circle"></i> Practice Problems</h2>
+ <div id="practice-problems">
+ <!-- Practice problems dynamically generated here -->
+ </div>
+ </div>
+ 
+
+ <div class="formula-card formula-history">
+    <h2><i class="fas fa-history"></i> Calculation History</h2>
+    <div id="history-list">
+    <p class="no-history">Your calculation history will appear here.</p>
+    </div>
+    <button id="clear-history" onclick="clearHistory()">
+    <i class="fas fa-trash"></i> Clear History
+    </button>
+    </div>
+
+ </main>
+
+
+ <footer class="footer">
+ <p>© 2025 CalcuNation | Physics Formulas</p>
+ </footer>
+ </div>
+
+
+ <script>
+ let calculationHistory = [];
+
+
+ function updateForm() {
+ const equationType = document.querySelector(
+ 'input[name="equationType"]:checked'
+ ).value;
+ const calcModeOptionsDiv = document.getElementById("calc-mode-options");
+ calcModeOptionsDiv.innerHTML = "";
+
+
+ let calcModes;
+ if (equationType === "massMolarMass") {
+ calcModes = ["moles", "mass", "molarMass"];
+ } else if (equationType === "concentrationVolume") {
+ calcModes = ["concentration", "moles", "volume"];
+ }
+
+
+ calcModes.forEach((mode) => {
+ const label = document.createElement("label");
+ const input = document.createElement("input");
+ input.type = "radio";
+ input.name = "calcMode";
+ input.value = mode;
+ input.onchange = () => {
+ updateInputVisibility();
+ updateSolutionAndDescription();
+ };
+ label.appendChild(input);
+ label.appendChild(document.createTextNode(getCalcModeLabel(mode)));
+ calcModeOptionsDiv.appendChild(label);
+ });
+
+
+ const defaultRadio = calcModeOptionsDiv.querySelector('input[type="radio"]');
+ if (defaultRadio) {
+ defaultRadio.checked = true;
+ }
+
+
+ updateInputVisibility();
+ updateSolutionAndDescription();
+ updateFormulaOrigin();
+ updatePracticeProblems();
+ document.getElementById("result").innerHTML = "";
+ }
+
+
+ function getCalcModeLabel(mode) {
+ switch (mode) {
+ case "moles":
+ return " Calculate Moles (n)";
+ case "mass":
+ return " Calculate Mass (m)";
+ case "molarMass":
+ return " Calculate Molar Mass (M)";
+ case "concentration":
+ return " Calculate Concentration (C)";
+ case "volume":
+ return " Calculate Volume (V)";
+ default:
+ return "";
+ }
+ }
+
+
+ function updateInputVisibility() {
+ const equationType = document.querySelector(
+ 'input[name="equationType"]:checked'
+ ).value;
+ const calcMode = document.querySelector('input[name="calcMode"]:checked').value;
+
+
+ const massGroup = document.getElementById("mass-group");
+ const molarMassGroup = document.getElementById("molarMass-group");
+ const molesGroup = document.getElementById("moles-group");
+ const concentrationGroup = document.getElementById("concentration-group");
+ const volumeGroup = document.getElementById("volume-group");
+
+
+ massGroup.style.display = calcMode !== "mass" ? "block" : "none";
+ molarMassGroup.style.display = calcMode !== "molarMass" ? "block" : "none";
+ molesGroup.style.display = calcMode !== "moles" ? "block" : "none";
+
+
+ if (equationType === "massMolarMass") {
+ concentrationGroup.style.display = "none";
+ volumeGroup.style.display = "none";
+ } else if (equationType === "concentrationVolume") {
+ concentrationGroup.style.display = calcMode !== "concentration" ? "block" : "none";
+ volumeGroup.style.display = calcMode !== "volume" ? "block" : "none";
+ massGroup.style.display = "none";
+ molarMassGroup.style.display = "none";
+ }
+ }
+
+
+ function updateSolutionAndDescription() {
+ const equationType = document.querySelector(
+ 'input[name="equationType"]:checked'
+ ).value;
+ const calcMode = document.querySelector('input[name="calcMode"]:checked').value;
+ const formulaHighlight = document.getElementById("formula-highlight");
+ const stepList = document.getElementById("step-list");
+ const exampleText = document.getElementById("example-text");
+ const descriptionText = document.getElementById("formula-description-text");
+ stepList.innerHTML = "";
+
+
+ let formulaText = "";
+ let description = "";
+ let example = "";
+ let steps = [];
+
+
+ if (equationType === "massMolarMass") {
+ formulaText = "n = m / M";
+ switch (calcMode) {
+ case "moles":
+ description =
+ "Calculates the number of moles (n) given the mass (m) and molar mass (M).";
+ example = "Example: If m = 20 g, M = 40 g/mol, then n = 20 / 40 = 0.5 mol";
+ steps = [
+ "Identify mass (m) and molar mass (M).",
+ "Substitute values into: n = m / M.",
+ "Compute the number of moles (n).",
+ ];
+ break;
+ case "mass":
+ description = "Calculates the mass (m) given the number of moles (n) and molar mass (M).";
+ example = "Example: If n = 0.5 mol, M = 40 g/mol, then m = 0.5 * 40 = 20 g";
+ steps = [
+ "Identify number of moles (n) and molar mass (M).",
+ "Rearrange the equation: m = n * M.",
+ "Substitute the values to solve for mass (m).",
+ ];
+ break;
+ case "molarMass":
+ description =
+ "Calculates the molar mass (M) given the mass (m) and the number of moles (n).";
+ example = "Example: If m = 20 g, n = 0.5 mol, then M = 20 / 0.5 = 40 g/mol";
+ steps = [
+ "Identify mass (m) and number of moles (n).",
+ "Rearrange the equation: M = m / n.",
+ "Substitute the values to compute molar mass (M).",
+ ];
+ break;
+ }
+ } else if (equationType === "concentrationVolume") {
+ formulaText = "C = n / V";
+ switch (calcMode) {
+ case "concentration":
+ description =
+ "Calculates the concentration (C) given the number of moles (n) and volume (V).";
+ example = "Example: If n = 0.5 mol, V = 2 L, then C = 0.5 / 2 = 0.25 mol/L";
+ steps = [
+ "Identify number of moles (n) and volume (V).",
+ "Substitute into: C = n / V.",
+ "Compute concentration (C).",
+ ];
+ break;
+ case "moles":
+ description = "Calculates the number of moles (n) given concentration (C) and volume (V).";
+ example = "Example: If C = 0.25 mol/L, V = 2 L, then n = 0.25 * 2 = 0.5 mol";
+ steps = [
+ "Identify concentration (C) and volume (V).",
+ "Rearrange the equation: n = C * V.",
+ "Substitute values to compute number of moles (n).",
+ ];
+ break;
+ case "volume":
+ description = "Calculates the volume (V) given the number of moles (n) and concentration (C).";
+ example = "Example: If n = 0.5 mol, C = 0.25 mol/L, then V = 0.5 / 0.25 = 2 L";
+ steps = [
+ "Identify number of moles (n) and concentration (C).",
+ "Rearrange the equation: V = n / C.",
+ "Substitute values to compute volume (V).",
+ ];
+ break;
+ }
+ }
+
+
+ formulaHighlight.textContent = formulaText;
+ descriptionText.textContent = description;
+ exampleText.textContent = example;
+ steps.forEach((step) => {
+ const li = document.createElement("li");
+ li.innerHTML = `<i class="fas fa-check-circle"></i> ${step}`;
+ stepList.appendChild(li);
+ });
+ }
+
+
+ function updateFormulaOrigin() {
+ const equationType = document.querySelector(
+ 'input[name="equationType"]:checked'
+ ).value;
+ const formulaOriginText = document.getElementById("formula-origin-text");
+ let originText = "";
+ if (equationType === "massMolarMass") {
+ originText =
+ "This equation is derived from the definition of the number of moles as the ratio of mass to molar mass.";
+ } else if (equationType === "concentrationVolume") {
+ originText =
+ "This equation is derived from the definition of concentration as the amount of solute (in moles) per unit volume of solution.";
+ }
+ formulaOriginText.textContent = originText;
+ }
+
+
+ function updatePracticeProblems() {
+ const equationType = document.querySelector(
+ 'input[name="equationType"]:checked'
+ ).value;
+ const practiceProblemsDiv = document.getElementById("practice-problems");
+ practiceProblemsDiv.innerHTML = "";
+ let problems = [];
+ if (equationType === "massMolarMass") {
+ problems = [
+ {
+ question:
+ "What is the number of moles in 40 grams of NaOH (Molar mass = 40 g/mol)?",
+ solution: "n = 40 g / 40 g/mol = 1 mol",
+ },
+ {
+ question:
+ "If you have 2 moles of water (H₂O, Molar mass ≈ 18 g/mol), what is the mass?",
+ solution: "m = 2 mol * 18 g/mol = 36 g",
+ },
+ ];
+ } else if (equationType === "concentrationVolume") {
+ problems = [
+ {
+ question:
+ "What is the concentration if 0.5 moles of solute are dissolved in 2 liters of solution?",
+ solution: "C = 0.5 mol / 2 L = 0.25 mol/L",
+ },
+ {
+ question:
+ "How many moles are needed to make a 3 L solution with a concentration of 0.1 mol/L?",
+ solution: "n = 0.1 mol/L * 3 L = 0.3 mol",
+ },
+ ];
+ }
+ problems.forEach((problem, index) => {
+ const div = document.createElement("div");
+ div.className = "problem";
+ div.innerHTML = `
+ <p><i class="fas fa-exclamation-circle"></i> <strong>Problem ${index + 1}:</strong> ${problem.question}</p>
+ <button class="show-answer-btn" onclick="toggleAnswer(this)">
+ <i class="fas fa-lightbulb"></i> Show Answer
+ </button>
+ <p class="answer" style="display: none;">${problem.solution}</p>
+ `;
+ practiceProblemsDiv.appendChild(div);
+ });
+ }
+
+
+ function calculate() {
+ const equationType = document.querySelector(
+ 'input[name="equationType"]:checked'
+ ).value;
+ const calcMode = document.querySelector('input[name="calcMode"]:checked').value;
+ let resultText = "";
+ let result;
+
+
+ const mass = parseFloat(document.getElementById("mass").value);
+ const molarMass = parseFloat(document.getElementById("molarMass").value);
+ const moles = parseFloat(document.getElementById("moles").value);
+ const concentration = parseFloat(document.getElementById("concentration").value);
+ const volume = parseFloat(document.getElementById("volume").value);
+
+
+ if (equationType === "massMolarMass") {
+ switch (calcMode) {
+ case "moles":
+ if (isNaN(mass) || isNaN(molarMass)) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Please provide valid inputs for mass and molar mass.';
+ } else if (molarMass === 0) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Molar mass must be non-zero.';
+ } else {
+ result = mass / molarMass;
+ resultText = `<i class="fas fa-check-circle"></i> Moles (n) = ${result.toFixed(
+ 2
+ )} mol`;
+ }
+ break;
+ case "mass":
+ if (isNaN(moles) || isNaN(molarMass)) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Please provide valid inputs for moles and molar mass.';
+ } else {
+ result = moles * molarMass;
+ resultText = `<i class="fas fa-check-circle"></i> Mass (m) = ${result.toFixed(
+ 2
+ )} g`;
+ }
+ break;
+ case "molarMass":
+ if (isNaN(mass) || isNaN(moles)) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Please provide valid inputs for mass and moles.';
+ } else if (moles === 0) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Moles must be non-zero.';
+ } else {
+ result = mass / moles;
+ resultText = `<i class="fas fa-check-circle"></i> Molar Mass (M) = ${result.toFixed(
+ 2
+ )} g/mol`;
+ }
+ break;
+ }
+ } else if (equationType === "concentrationVolume") {
+ switch (calcMode) {
+ case "concentration":
+ if (isNaN(moles) || isNaN(volume)) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Please provide valid inputs for moles and volume.';
+ } else if (volume === 0) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Volume must be non-zero.';
+ } else {
+ result = moles / volume;
+ resultText = `<i class="fas fa-check-circle"></i> Concentration (C) = ${result.toFixed(
+ 2
+ )} mol/L`;
+ }
+ break;
+ case "moles":
+ if (isNaN(concentration) || isNaN(volume)) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Please provide valid inputs for concentration and volume.';
+ } else {
+ result = concentration * volume;
+ resultText = `<i class="fas fa-check-circle"></i> Moles (n) = ${result.toFixed(
+ 2
+ )} mol`;
+ }
+ break;
+ case "volume":
+ if (isNaN(moles) || isNaN(concentration)) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Please provide valid inputs for moles and concentration.';
+ } else if (concentration === 0) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Concentration must be non-zero.';
+ } else {
+ result = moles / concentration;
+ resultText = `<i class="fas fa-check-circle"></i> Volume (V) = ${result.toFixed(
+ 2
+ )} L`;
+ }
+ break;
+ }
+ }
+
+
+ document.getElementById("result").innerHTML = resultText;
+ addToCalculationHistory(
+ equationType,
+ calcMode,
+ { mass, molarMass, moles, concentration, volume },
+ result
+ );
+ }
+
+
+ function toggleAnswer(button) {
+ const answer = button.nextElementSibling;
+ if (answer.style.display === "none") {
+ answer.style.display = "block";
+ button.innerHTML =
+ '<i class="fas fa-eye-slash"></i> Hide Answer';
+ } else {
+ answer.style.display = "none";
+ button.innerHTML =
+ '<i class="fas fa-lightbulb"></i> Show Answer';
+ }
+ }
+
+
+ function addToCalculationHistory(equationType, calcMode, inputs, result) {
+ const historyItem = {
+ equationType,
+ calcMode,
+ inputs,
+ result,
+ timestamp: new Date(),
+ };
+ calculationHistory.push(historyItem);
+ updateHistoryList();
+ }
+
+
+ function updateHistoryList() {
+ const historyList = document.getElementById("history-list");
+ historyList.innerHTML = "";
+ if (calculationHistory.length === 0) {
+ historyList.innerHTML =
+ '<p class="no-history">Your calculation history will appear here.</p>';
+ return;
+ }
+ calculationHistory.forEach((item, index) => {
+ const div = document.createElement("div");
+ div.className = "history-item";
+ let equationText = "";
+ if (item.equationType === "massMolarMass") {
+ equationText = "n = m / M";
+ } else if (item.equationType === "concentrationVolume") {
+ equationText = "C = n / V";
+ }
+ div.innerHTML = `
+ <p><i class="fas fa-history"></i> Calculation ${index + 1}:</p>
+ <p>Equation: ${equationText}</p>
+ <p>Calculation Mode: ${getCalcModeLabel(item.calcMode)}</p>
+ <p>Result: ${item.result}</p>
+ <p>Timestamp: ${item.timestamp.toLocaleString()}</p>
+ `;
+ historyList.appendChild(div);
+ });
+ }
+
+
+ function clearHistory() {
+ calculationHistory = [];
+ updateHistoryList();
+ }
+
+
+ document.addEventListener("DOMContentLoaded", () => {
+ updateForm();
+ updateHistoryList();
+ });
+ </script>
+</body>
+
+
+</html>

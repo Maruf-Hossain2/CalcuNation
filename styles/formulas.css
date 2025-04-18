@@ -1,0 +1,435 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   }
+   
+   
+   body {
+    background: linear-gradient(45deg, #111, #333);
+    color: #eee;
+    line-height: 1.6;
+    padding: 20px;
+    overflow-x: hidden;
+   }
+   
+   
+   /* Header Styles */
+   .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+   }
+   
+   
+   .header-left .title {
+    font-size: 2.5rem;
+    color: #7fff00;
+    /* LimeGreen */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+   }
+   
+   
+   .header-left .title i {
+    margin-right: 0.5rem;
+    animation: pulse 2s ease-in-out infinite alternate;
+    /* Pulsing animation */
+    color: #00ffff;
+    /* Cyan */
+   }
+   
+   
+   .header-right .back-home-btn {
+    background: linear-gradient(to right, #00ffff, #7fff00);
+    color: #111;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); /* Neon glow effect */
+    border: none;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    animation: gradientShift 5s linear infinite; /* Gradient animation */
+   }
+   
+   
+   .header-right .back-home-btn:hover {
+    transform: scale(1.05); /* Scale up slightly on hover */
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.7); /* Enhanced neon glow on hover */
+   }
+   
+   
+   .header-right .back-home-btn:hover::before {
+    left: 100%;
+   }
+   
+   
+   .header-right .back-home-btn i {
+    margin-right: 0.5rem;
+    color: #7fff00;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    z-index: 2;
+    position: relative;
+    animation: pulse 2s ease-in-out infinite alternate; /* Icon pulse animation */
+   }
+   
+   
+   /* Intro Section */
+   .intro {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(51, 51, 51, 0.7);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fadeIn 1s ease-out;
+   }
+   
+   
+   .intro p {
+    font-size: 1.2rem;
+    color: #ccc;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+   }
+   
+   
+   /* Formula Categories */
+   .formula-categories {
+    margin-bottom: 3rem;
+   }
+   
+   
+   .formula-categories h2 {
+    font-size: 1.8rem;
+    color: #00ffff;
+    /* Cyan for a futuristic look */
+    margin-bottom: 1.2rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+   }
+   
+   
+   .formula-categories h2 i {
+    margin-right: 0.5rem;
+    color: #7fff00;
+    /* LimeGreen icon */
+   }
+   
+   
+   .formula-categories ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1.2rem;
+    background: rgba(51, 51, 51, 0.7);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    flex-wrap: wrap;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+   }
+   
+   
+   .formula-categories ul:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    transform: translateY(-3px);
+   }
+   
+   
+   .formula-categories ul li a {
+    color: #00ffff;
+    /* Cyan link text */
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    background: rgba(100, 149, 237, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+   }
+   
+   
+   .formula-categories ul li a:hover {
+    color: #7fff00;
+    /* LimeGreen on hover */
+    background: rgba(100, 149, 237, 0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    transform: translateY(-3px);
+   }
+   
+   
+   .formula-categories ul li a i {
+    margin-right: 0.3rem;
+    color: #7fff00;
+    /* LimeGreen icon */
+   }
+   
+   
+   /* New style for the plus icon and text */
+   .formula-categories ul li a {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+   }
+   
+   
+   .formula-categories ul li a i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-right: 0.5rem;
+    border-radius: 6px;
+    background-color: #7fff00;
+    /* Lime background for the icon */
+    color: #111;
+    /* Dark color for the plus sign */
+    text-shadow: none;
+    /* Remove text shadow from the icon */
+   }
+   
+   
+   .formula-categories ul li a span {
+    color: #00ffff;
+    /* Cyan text color */
+   }
+   
+   
+   /* Category Section Headers */
+   .category-section h2 {
+    font-size: 2rem;
+    color: #00ffff;
+    /* Cyan for a futuristic look */
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+   }
+   
+   
+   .category-section h2 i {
+    margin-right: 0.5rem;
+    color: #7fff00;
+    /* LimeGreen icon */
+   }
+   
+   
+   .category-section h2 span {
+    color: #00ffff;
+    /* Cyan text color */
+   }
+   
+   
+   /* Main Content Container */
+   .formulas-container {
+    max-width: 1200px;
+    margin: 0 auto;
+   }
+   
+   
+   /* Formula Card */
+   .formula-card {
+    background: rgba(51, 51, 51, 0.7);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: slideInUp 0.5s ease-out;
+   }
+   
+   
+   .formula-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+   }
+   
+   
+   .formula-card h3 {
+    font-size: 1.6rem;
+    color: #ddd;
+    margin-bottom: 0.75rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   }
+   
+   
+   .formula-card p {
+    font-size: 1.1rem;
+    color: #ccc;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+   }
+   
+   
+   .formula-card .formula {
+    font-family: 'Roboto Slab', monospace;
+    font-size: 1.3rem;
+    color: #87cefa;
+    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+   }
+   
+   
+   .formula-card .formula-description {
+    font-style: italic;
+    color: #999;
+   }
+   
+   
+   .formula-card .details-link {
+    color: #66CDAA;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 2px solid transparent;
+   }
+   
+   
+   .formula-card .details-link:hover {
+    color: #7FFFD4;
+    border-bottom: 2px solid #7FFFD4;
+   }
+   
+   
+   /* Footer Styles */
+   .footer {
+    text-align: center;
+    padding: 1rem 0;
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    margin-top: 4rem;
+    color: #888;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+   }
+   
+   
+   /* Bookmark Star Styles */
+   .bookmark-star {
+    cursor: pointer;
+    font-size: 1.2em;
+    color: #6495ed;
+    transition: color 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+   }
+   
+   
+   .bookmark-star.active {
+    color: #ffa07a;
+   }
+   
+   
+   /* Keyframes for Animations */
+   @keyframes pulse {
+    0% {
+    transform: scale(1);
+    }
+   
+   
+    100% {
+    transform: scale(1.2);
+    }
+   }
+   
+   
+   @keyframes fadeIn {
+    from {
+    opacity: 0;
+    transform: translateY(-20px);
+    }
+   
+   
+    to {
+    opacity: 1;
+    transform: translateY(0);
+    }
+   }
+   
+   
+   @keyframes slideInUp {
+    from {
+    opacity: 0;
+    transform: translateY(50px);
+    }
+   
+   
+    to {
+    opacity: 1;
+    transform: translateY(0);
+    }
+   }
+   
+   
+   /* Keyframes for gradient animation */
+   @keyframes gradientShift {
+    0% {
+    background-position: 0% 50%;
+    }
+   
+   
+    100% {
+    background-position: 100% 50%;
+    }
+   }
+   
+   
+   /* Selection color */
+   ::selection {
+    background-color: rgba(0, 255, 255, 0.3); /* Cyan with transparency */
+    color: #fff; /* White text for contrast */
+   }
+   
+   
+   ::-moz-selection {
+    background-color: rgba(127, 255, 0, 0.3); /* Lime with transparency */
+    color: #fff; /* White text for contrast */
+   }
+   
+   
+   /* Media Queries for Responsiveness */
+   @media (max-width: 768px) {
+    .header {
+    flex-direction: column;
+    text-align: center;
+    }
+   
+   
+    .header-left {
+    margin-bottom: 1rem;
+    }
+   
+   
+    .formula-categories ul {
+    flex-direction: column;
+    align-items: center;
+    }
+   
+   
+    .formula-categories ul li {
+    margin-bottom: 0.5rem;
+    }
+   }
+   

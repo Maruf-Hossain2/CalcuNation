@@ -1,0 +1,410 @@
+/* Graph.css */
+
+
+/* General styles for all graph pages */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #181818;
+    color: #fff;
+    padding: 2rem;
+    line-height: 1.6;
+    overflow-x: hidden;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #181818, #222);
+   }
+   
+   
+   .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    flex: 1;
+   }
+   
+   
+   /* Header Styles */
+   .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #444;
+   }
+   
+   
+   .header-left h1 {
+    font-size: 2.5rem;
+    color: #00ffff; /* Cyan */
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+   }
+   
+   
+   .header-left h1 i {
+    color: #7fff00; /* Lime */
+    animation: iconPulse 2s infinite alternate, iconScale 2s infinite alternate; /* Add pulse and scale animation */
+    transform-origin: center; /* Ensure scaling occurs from the center */
+    display: inline-block; /* Required for transform to work correctly */
+   }
+   
+   
+   .header-right .back-home-btn {
+    background: linear-gradient(to right, #7fff00, #00ffff, #7fff00); /* Multi-color gradient */
+    color: #000; /* Black */
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.5s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.6), 0 0 20px rgba(127, 255, 0, 0.6); /* Stronger glow effect */
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+   }
+   
+   
+   .header-right .back-home-btn i {
+    color: #000; /* Black */
+    margin-right: 0.5rem;
+   }
+   
+   
+   .header-right .back-home-btn span {
+    color: #000; /* Black */
+   }
+   
+   
+   /* Animated background effect */
+   .header-right .back-home-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, #7fff00, #00ffff, #7fff00, #00ffff);
+    z-index: -1;
+    animation: animatedBackground 5s linear infinite;
+    background-size: 400%;
+    border-radius: 6px;
+   }
+   
+   
+   @keyframes animatedBackground {
+    0% {
+    background-position: 0% 50%;
+    }
+    50% {
+    background-position: 100% 50%;
+    }
+    100% {
+    background-position: 0% 50%;
+    }
+   }
+   
+   
+   .header-right .back-home-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 30px rgba(0, 255, 255, 0.8), 0 5px 30px rgba(127, 255, 0, 0.8); /* Stronger glow on hover */
+   }
+   
+   
+   /* Intro Section */
+   .intro {
+    margin-bottom: 3rem;
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+   }
+   
+   
+   .intro p {
+    font-size: 1.2rem;
+    color: #eee;
+   }
+   
+   
+   /* Graph Input Section */
+   .graph-input {
+    margin-bottom: 2rem;
+    text-align: center;
+   }
+   
+   
+   .graph-input .input-group {
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: slideIn 0.5s ease-out forwards;
+   }
+   
+   
+   /* Apply animation delay to each input group */
+   .graph-input .input-group:nth-child(1) {
+    animation-delay: 0.2s;
+   }
+   
+   
+   .graph-input .input-group:nth-child(2) {
+    animation-delay: 0.4s;
+   }
+   
+   
+   .graph-input label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #ddd;
+   }
+   
+   
+   /* Apply lime color to all icons in the input groups */
+   .graph-input .input-group label i {
+    color: #7fff00; /* Lime Green */
+    margin-right: 0.5rem;
+   }
+   
+   
+   /* Apply cyan color to the text in the input groups */
+   .graph-input .input-group label {
+    color: #00ffff; /* Cyan */
+   }
+   
+   
+   .graph-input select, /* Style the select element */
+   .graph-input input[type="text"],
+   .graph-input input[type="number"] {
+    padding: 0.75rem;
+    border-radius: 6px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    width: 80%;
+    max-width: 400px;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+   }
+   
+   
+   .graph-input select:focus, /* Style the select element when focused */
+   .graph-input input[type="text"]:focus,
+   .graph-input input[type="number"]:focus {
+    box-shadow: 0 0 5px #00ffff;
+    transform: scale(1.05);
+   }
+   
+   
+   .graph-input button[type="submit"] {
+    background-color: #7fff00; /* Lime Green */
+    color: #222;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+    animation: pulse 2s infinite alternate;
+   }
+   
+   
+   .graph-input button[type="submit"]:hover {
+    background-color: #00ffff; /* Cyan */
+    color: #222;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.7);
+   }
+   
+   
+   .input-hint {
+    font-size: 0.8rem;
+    color: #aaa;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+   }
+   
+   
+   /* Graph Preview Section */
+   .graph-preview {
+    background: #222;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    flex: 1;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1s ease-in-out;
+   }
+   
+   
+   canvas {
+    max-width: 100%;
+    max-height: 100%;
+   }
+   
+   
+   /* Animations */
+   @keyframes fadeIn {
+    from {
+    opacity: 0;
+    }
+    to {
+    opacity: 1;
+    }
+   }
+   
+   
+   @keyframes slideIn {
+    from {
+    opacity: 0;
+    transform: translateY(-20px);
+    }
+    to {
+    opacity: 1;
+    transform: translateY(0);
+    }
+   }
+   
+   
+   @keyframes pulse {
+    from {
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.3); /* Lime Green */
+    }
+    to {
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); /* Lime Green */
+    }
+   }
+   
+   
+   @keyframes iconPulse { /* New animation for the icon */
+    from {
+    text-shadow: 0 0 5px rgba(127, 255, 0, 0.3); /* Lime Green */
+    }
+    to {
+    text-shadow: 0 0 15px rgba(127, 255, 0, 0.7); /* Lime Green */
+    }
+   }
+   
+   
+   @keyframes iconScale { /* New animation for the scaling effect */
+    from {
+    transform: scale(1);
+    }
+    to {
+    transform: scale(1.2);
+    }
+   }
+   
+   
+   /* Specific styles for the Pie Chart */
+   /* Enhancements for Pie Chart */
+   #pieChartContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+   }
+   
+   
+   #pieChart {
+    transition: transform 0.3s ease-in-out;
+   }
+   
+   
+   #pieChart:hover {
+    transform: scale(1.05);
+   }
+   
+   
+   /* Tooltip Styles */
+   .chartjs-tooltip {
+    opacity: 1;
+    position: absolute;
+    background: rgba(51, 51, 51, 0.9);
+    color: #fff;
+    border-radius: 6px;
+    padding: 0.5em 1em;
+    pointer-events: none;
+    z-index: 10;
+    transition: all 0.1s ease;
+   }
+   
+   
+   .chartjs-tooltip table {
+    border-collapse: collapse;
+   }
+   
+   
+   .chartjs-tooltip tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+   }
+   
+   
+   .chartjs-tooltip tr:last-child {
+    border-bottom: none;
+   }
+   
+   
+   .chartjs-tooltip th {
+    font-weight: normal;
+    padding: 0.3em;
+    color: #7fff00;
+   }
+   
+   
+   .chartjs-tooltip td {
+    padding: 0.3em;
+   }
+   
+   
+   /* Responsive Design */
+   @media (max-width: 768px) {
+    body {
+    padding: 1rem;
+    }
+   
+   
+    .header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    }
+   
+   
+    .header-left h1 {
+    font-size: 2rem;
+    }
+   
+   
+    .graph-input select,
+    .graph-input input[type="text"],
+    .graph-input input[type="number"] {
+    width: 100%;
+    }
+   }
+   
+   
+   /* Accessibility */
+   @media (prefers-reduced-motion: reduce) {
+    .header-right .back-home-btn {
+    transition: none;
+    animation: none;
+    }
+   
+   
+    .graph-input button[type="submit"] {
+    transition: none;
+    animation: none;
+    }
+   
+   
+    .intro {
+    animation: none;
+    }
+   
+   
+    .graph-preview {
+    animation: none;
+    }
+   }
+   

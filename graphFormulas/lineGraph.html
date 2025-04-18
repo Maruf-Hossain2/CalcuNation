@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Futuristic Line Graph</title>
+  <link rel="stylesheet" href="Graph.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ </head>
+ <body>
+  <div class="container">
+  <header class="header">
+  <div class="header-left">
+  <h1><i class="fas fa-chart-line"></i> Line Graph</h1>
+  </div>
+  <div class="header-right">
+  <a href="/pages/graph.html" class="back-home-btn"><i class="fas fa-home"></i> Go Back Home</a>
+  </div>
+  </header>
+  <section class="intro">
+  <p>Visualize your data with this interactive and futuristic line graph explorer.</p>
+  </section>
+  <section class="graph-input">
+  <form id="data-form">
+  <div class="input-group">
+  <label for="equation-type"><i class="fas fa-code"></i> Equation Type:</label>
+  <select id="equation-type" name="equation-type">
+  <option value="data-points">Data Points</option>
+  <option value="linear">Linear (y = mx + b)</option>
+  <option value="quadratic">Quadratic (y = ax² + bx + c)</option>
+  <option value="cubic">Cubic (y = ax³ + bx² + cx + d)</option>
+  </select>
+  </div>
+  <div id="data-points-input" class="input-group">
+  <label for="data-points"><i class="fas fa-list"></i> Data Points (comma or space-separated):</label>
+  <input type="text" id="data-points" name="data-points" placeholder="e.g., 10, 20, 30, 40, 50">
+  <p class="input-hint">Enter numerical values separated by commas or spaces.</p>
+  </div>
+  <div id="linear-input" class="input-group" style="display: none;">
+  <label for="linear-m"><i class="fas fa-superscript"></i> m (Slope):</label>
+  <input type="number" id="linear-m" name="linear-m" placeholder="Slope (m)">
+  <label for="linear-b"><i class="fas fa-italic"></i> b (Y-intercept):</label>
+  <input type="number" id="linear-b" name="linear-b" placeholder="Y-intercept (b)">
+  </div>
+  <div id="quadratic-input" class="input-group" style="display: none;">
+  <label for="quadratic-a"><i class="fas fa-italic"></i> a:</label>
+  <input type="number" id="quadratic-a" name="quadratic-a" placeholder="Coefficient a">
+  <label for="quadratic-b"><i class="fas fa-italic"></i> b:</label>
+  <input type="number" id="quadratic-b" name="quadratic-b" placeholder="Coefficient b">
+  <label for="quadratic-c"><i class="fas fa-italic"></i> c:</label>
+  <input type="number" id="quadratic-c" name="quadratic-c" placeholder="Coefficient c">
+  </div>
+  <div id="cubic-input" class="input-group" style="display: none;">
+  <label for="cubic-a"><i class="fas fa-italic"></i> a:</label>
+  <input type="number" id="cubic-a" name="cubic-a" placeholder="Coefficient a">
+  <label for="cubic-b"><i class="fas fa-italic"></i> b:</label>
+  <input type="number" id="cubic-b" name="cubic-b" placeholder="Coefficient b">
+  <label for="cubic-c"><i class="fas fa-italic"></i> c:</label>
+  <input type="number" id="cubic-c" name="cubic-c" placeholder="Coefficient c">
+  <label for="cubic-d"><i class="fas fa-italic"></i> d:</label>
+  <input type="number" id="cubic-d" name="cubic-d" placeholder="Coefficient d">
+  </div>
+  <button type="submit"><i class="fas fa-chart-line"></i> Update Graph</button>
+  </form>
+  </section>
+  <section class="graph-preview">
+  <canvas id="lineChart"></canvas>
+  </section>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="lineGraph.js"></script>
+ </body>
+ </html>

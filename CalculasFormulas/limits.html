@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Limit Definition of Derivative</title>
+  <link rel="stylesheet" href="algebra.css" />
+  <link rel="stylesheet" href="limits.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-left">
+        <h1><i class="fas fa-infinity"></i> Limit Definition of Derivative</h1>
+      </div>
+      <div class="header-right">
+        <a href="/pages/calculus.html" class="back-home-btn"><i class="fas fa-arrow-left"></i> Back to Calculus</a>
+      </div>
+    </header>
+
+    <main class="formula-dashboard">
+
+      <!-- Calculation Input -->
+      <section class="formula-card calculation-inputs">
+        <h2><i class="fas fa-calculator"></i> Calculation Inputs</h2>
+        <form id="limit-form">
+          <label for="function">Function f(x):</label>
+          <input type="text" id="function" placeholder="e.g., x^2" />
+
+          <label for="point">Point x:</label>
+          <input type="number" id="point" placeholder="e.g., 2" />
+
+          <button type="button" onclick="calculateLimitDerivative()">
+            <i class="fas fa-equals"></i> Calculate Derivative
+          </button>
+        </form>
+        <div id="limit-result" class="result"></div>
+      </section>
+
+      <!-- Step-by-step Solution -->
+      <section class="formula-card step-by-step-solution">
+        <h2><i class="fas fa-tasks"></i> Step-by-Step Solution</h2>
+        <ol id="limit-step-list"></ol>
+      </section>
+
+      <!-- Description -->
+      <section class="formula-card formula-description">
+        <h2><i class="fas fa-info-circle"></i> Description of the Formula</h2>
+        <p>The limit definition of the derivative is:</p>
+        <p class="formula">f'(x) = lim<sub>h→0</sub> [(f(x+h) - f(x)) / h]</p>
+        <p>This expression represents the instantaneous rate of change or the slope of the tangent line at a specific point on a curve.</p>
+      </section>
+
+      <!-- History -->
+      <section class="formula-card formula-history">
+        <h2><i class="fas fa-history"></i> Formula History</h2>
+        <p>The derivative and its limit-based definition were formalized in the 17th century by Isaac Newton and Gottfried Wilhelm Leibniz, laying the groundwork for differential calculus.</p>
+      </section>
+
+      <!-- Video -->
+      <section class="formula-card video-tutorial">
+        <h2><i class="fab fa-youtube"></i> Video Tutorial</h2>
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/ANyVpMS3HLQ" title="Limit Definition of Derivative Tutorial" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </section>
+
+      <!-- Practice Problems -->
+      <section class="formula-card quizzes-practice-problems">
+        <h2><i class="fas fa-question-circle"></i> Practice Problems</h2>
+        <div class="problem">
+          <p><strong>Problem 1:</strong> Find the derivative of f(x) = x² using the limit definition at x = 3</p>
+          <button onclick="toggleAnswer(this)"><i class="fas fa-lightbulb"></i> Show Answer</button>
+          <p class="answer" style="display: none;">f'(3) = 6</p>
+        </div>
+        <div class="problem">
+          <p><strong>Problem 2:</strong> Use the limit definition to find the derivative of f(x) = 1/x at x = 1</p>
+          <button onclick="toggleAnswer(this)"><i class="fas fa-lightbulb"></i> Show Answer</button>
+          <p class="answer" style="display: none;">f'(1) = -1</p>
+        </div>
+      </section>
+
+      <!-- Calculation History -->
+      <section class="formula-card calculation-history">
+        <h2><i class="fas fa-list"></i> Calculation History</h2>
+        <div id="limit-history-list">
+          <p class="no-history">Your calculation history will appear here.</p>
+        </div>
+        <button id="clear-limit-history" onclick="clearLimitHistory()"><i class="fas fa-trash"></i> Clear History</button>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <p>© 2025 CalcuNation | Calculus Tools</p>
+    </footer>
+  </div>
+
+  <script>
+    function parseExpression(expr, x) {
+      try {
+        return Function("x", "return " + expr.replace(/\^/g, "**"))(x);
+      } catch {
+        return NaN;
+      }
+    }
+
+    function calculateLimitDerivative() {
+      const fx = document.getElementById("function").value.trim();
+      const x = parseFloat(document.getElementById("point").value);
+      const h = 0.00001;
+
+      if (!fx || isNaN(x)) {
+        document.getElementById("limit-result").innerHTML =
+          '<i class="fas fa-exclamation-triangle"></i> Please enter a valid function and point.';
+        return;
+      }
+
+      const fxh = parseExpression(fx, x + h);
+      const fx0 = parseExpression(fx, x);
+      const derivative = (fxh - fx0) / h;
+
+      document.getElementById("limit-result").innerHTML = `<i class="fas fa-check-circle"></i> f'(${x}) ≈ <strong>${derivative.toFixed(6)}</strong>`;
+      updateLimitSteps(fx, x, h, fxh, fx0, derivative);
+      addToLimitHistory(fx, x, derivative);
+    }
+
+    function updateLimitSteps(fx, x, h, fxh, fx0, derivative) {
+      const steps = document.getElementById("limit-step-list");
+      steps.innerHTML = `
+        <li>Step 1: Function f(x) = ${fx}</li>
+        <li>Step 2: Choose small h ≈ ${h}</li>
+        <li>Step 3: f(x+h) = f(${x}+${h}) ≈ ${fxh.toFixed(6)}</li>
+        <li>Step 4: f(x) = f(${x}) ≈ ${fx0.toFixed(6)}</li>
+        <li>Step 5: [f(x+h) - f(x)] / h ≈ (${fxh.toFixed(6)} - ${fx0.toFixed(6)}) / ${h}</li>
+        <li>Step 6: Derivative f'(${x}) ≈ ${derivative.toFixed(6)}</li>
+      `;
+    }
+
+    function addToLimitHistory(fx, x, derivative) {
+      const history = document.getElementById("limit-history-list");
+      const noHistory = document.querySelector(".no-history");
+      if (noHistory) noHistory.remove();
+
+      const entry = document.createElement("p");
+      entry.innerHTML = `<i class="fas fa-check"></i> f(x) = ${fx}, x = ${x}, f'(${x}) ≈ ${derivative.toFixed(6)}`;
+      history.prepend(entry);
+    }
+
+    function clearLimitHistory() {
+      document.getElementById("limit-history-list").innerHTML = '<p class="no-history">Your calculation history will appear here.</p>';
+    }
+
+    function toggleAnswer(button) {
+      const answer = button.nextElementSibling;
+      if (answer.style.display === "none" || answer.style.display === "") {
+        answer.style.display = "block";
+        button.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Answer';
+      } else {
+        answer.style.display = "none";
+        button.innerHTML = '<i class="fas fa-lightbulb"></i> Show Answer';
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      window.calculateLimitDerivative = calculateLimitDerivative;
+      window.clearLimitHistory = clearLimitHistory;
+    });
+  </script>
+</body>
+
+</html>

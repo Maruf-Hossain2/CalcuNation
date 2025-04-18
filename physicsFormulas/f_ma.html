@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>F = ma - Newton's Second Law</title>
+ <link rel="stylesheet" href="f_ma.css" />
+ <link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+ <link rel="preconnect" href="https://fonts.googleapis.com" />
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+ <link
+ href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+ rel="stylesheet" />
+
+</head>
+
+
+<body>
+ <div class="container">
+ <header class="header">
+ <div class="header-left">
+ <h1 class="title"><i class="fas fa-atom"></i> F = ma Dashboard</h1>
+ </div>
+ <div class="header-right">
+ <a href="/pages/Physics.html" class="back-home-btn"><i class="fas fa-arrow-left"></i> Back to Physics</a>
+ </div>
+ </header>
+
+
+ <main class="formula-dashboard">
+ <!-- Calculation Card -->
+ <section class="formula-card calculation-inputs">
+ <h2><i class="fas fa-calculator"></i> Calculation Inputs</h2>
+ <form id="fma-form">
+ <fieldset class="calc-mode-selector">
+ <legend>Select Calculation Type</legend>
+ <label>
+ <input type="radio" name="calcMode" value="force" checked onchange="updateForm()" />
+ Calculate Force (F = m × a)
+ </label>
+ <label>
+ <input type="radio" name="calcMode" value="mass" onchange="updateForm()" />
+ Calculate Mass (m = F / a)
+ </label>
+ <label>
+ <input type="radio" name="calcMode" value="acceleration" onchange="updateForm()" />
+ Calculate Acceleration (a = F / m)
+ </label>
+ </fieldset>
+ <!-- Input Groups -->
+ <div class="input-group" id="mass-group">
+ <label for="mass"><i class="fas fa-weight-hanging"></i> Mass (m):</label>
+ <input type="number" id="mass" name="mass" placeholder="Enter mass (kg)" />
+ </div>
+ <div class="input-group" id="acceleration-group">
+ <label for="acceleration"><i class="fas fa-rocket"></i> Acceleration (a):</label>
+ <input type="number" id="acceleration" name="acceleration" placeholder="Enter acceleration (m/s²)" />
+ </div>
+ <div class="input-group" id="force-group" style="display: none;">
+ <label for="force"><i class="fas fa-bolt"></i> Force (F):</label>
+ <input type="number" id="force" name="force" placeholder="Enter force (N)" />
+ </div>
+ <button type="button" onclick="calculate()">
+ <i class="fas fa-bolt"></i> Calculate
+ </button>
+ </form>
+ <div id="result" class="result"></div>
+ </section>
+
+
+ <!-- Step-by-step Solution Card -->
+ <section class="formula-card step-by-step-solution">
+ <h2><i class="fas fa-tasks"></i> Step-by-Step Solution</h2>
+ <div class="solution-content">
+ <p id="formula-highlight" class="formula-highlight"></p>
+ <ol id="step-list"></ol>
+ <div class="example">
+ <i class="fas fa-flask"></i>
+ <strong id="example-text"></strong>
+ </div>
+ </div>
+ </section>
+
+
+ <!-- Description Card -->
+ <section class="formula-card formula-description">
+ <h2><i class="fas fa-info-circle"></i> Description of the Formula</h2>
+ <p id="formula-description-text"></p>
+ </section>
+
+
+ <!-- Formula History Card -->
+ <section class="formula-card formula-history">
+ <h2><i class="fas fa-history"></i> Formula History</h2>
+ <div class="history-header">
+ <img src="/img/newton.png" alt="Sir Isaac Newton" class="newton-image" onclick="openPopup('/img/newton.png')"
+ style="cursor: pointer;">
+ <div>
+ <p>
+ Newton’s Second Law, expressed as F = m × a, was published in 1687 in “Principia Mathematica.”
+ This fundamental law of motion laid the groundwork for classical mechanics.
+ </p>
+ <p>
+ Sir Isaac Newton’s contributions have shaped modern physics, making the understanding of his laws essential in both theory and practical applications.
+ </p>
+ </div>
+ </div>
+ </section>
+
+
+ <!-- Video Tutorial Card -->
+ <section class="formula-card video-tutorial">
+ <h2><i class="fab fa-youtube"></i> Video Tutorial</h2>
+ <div class="video-container">
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/SPE_jKZS9So" title="YouTube video player"
+ frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+ allowfullscreen></iframe>
+ </div>
+ </section>
+
+
+ <!-- Practice Problems Card -->
+ <section class="formula-card quizzes-practice-problems">
+ <h2><i class="fas fa-question-circle"></i> Practice Problems</h2>
+ <div class="problem">
+ <p>
+ <i class="fas fa-exclamation-circle"></i> <strong>Problem 1:</strong> A car with a mass of 1000 kg accelerates
+ at 2 m/s². Calculate the force acting on it.
+ </p>
+ <button class="show-answer-btn" onclick="toggleAnswer(this)">
+ <i class="fas fa-lightbulb"></i> Show Answer
+ </button>
+ <p class="answer" style="display: none;">F = 1000 kg × 2 m/s² = 2000 N</p>
+ </div>
+ <div class="problem">
+ <p>
+ <i class="fas fa-exclamation-circle"></i> <strong>Problem 2:</strong> A force of 200 N acts on a 40 kg bicycle.
+ What is its acceleration?
+ </p>
+ <button class="show-answer-btn" onclick="toggleAnswer(this)">
+ <i class="fas fa-lightbulb"></i> Show Answer
+ </button>
+ <p class="answer" style="display: none;">200 N = 40 kg × a → a = 5 m/s²</p>
+ </div>
+ </section>
+
+
+ <!-- Calculation History Card -->
+ <section class="formula-card calculation-history">
+ <h2><i class="fas fa-list"></i> Calculation History</h2>
+ <div id="history-list">
+ <p class="no-history">Your calculation history will appear here.</p>
+ </div>
+ <button id="clear-history" onclick="clearHistory()"><i class="fas fa-trash"></i> Clear History</button>
+ </section>
+ </main>
+
+
+ <footer class="footer">
+ <p>© 2025 CalcuNation | Physics Formulas</p>
+ </footer>
+ </div>
+
+
+ <!-- Image Popup Container -->
+ <div class="popup-image-container" onclick="closePopup()">
+ <img id="popup-image" src="" alt="Enlarged Image">
+ </div>
+
+
+ <script>
+ function updateForm() {
+ const mode = document.querySelector('input[name="calcMode"]:checked').value;
+ const massGroup = document.getElementById("mass-group");
+ const accelerationGroup = document.getElementById("acceleration-group");
+ const forceGroup = document.getElementById("force-group");
+
+
+ massGroup.style.display = (mode === "force" || mode === "acceleration") ? "block" : "none";
+ accelerationGroup.style.display = (mode === "force" || mode === "mass") ? "block" : "none";
+ forceGroup.style.display = (mode === "mass" || mode === "acceleration") ? "block" : "none";
+
+
+ updateSolutionAndDescription(mode);
+ document.getElementById('result').innerHTML = "";
+ }
+
+
+ function updateSolutionAndDescription(mode) {
+ const formulaHighlight = document.getElementById("formula-highlight");
+ const stepList = document.getElementById("step-list");
+ const exampleText = document.getElementById("example-text");
+ const descriptionText = document.getElementById("formula-description-text");
+
+
+ stepList.innerHTML = "";
+
+
+ if (mode === "force") {
+ formulaHighlight.textContent = "F = m × a";
+ descriptionText.textContent = "Newton's Second Law states that the force acting on an object is equal to its mass multiplied by its acceleration.";
+ exampleText.textContent = "Example: m = 2 kg, a = 3 m/s² yields F = 6 N";
+
+
+ addStep(stepList, "Identify the values for mass (m) and acceleration (a).");
+ addStep(stepList, "Substitute them into the equation: F = m × a.");
+ addStep(stepList, "Calculate the result to get the force (F) in Newtons.");
+ } else if (mode === "mass") {
+ formulaHighlight.textContent = "m = F / a";
+ descriptionText.textContent = "To calculate mass, divide the force acting on an object by its acceleration.";
+ exampleText.textContent = "Example: F = 6 N, a = 3 m/s² yields m = 2 kg";
+
+
+ addStep(stepList, "Identify the values for force (F) and acceleration (a).");
+ addStep(stepList, "Substitute them into the equation: m = F / a.");
+ addStep(stepList, "Divide the force by the acceleration to get the mass (m) in kilograms.");
+ } else if (mode === "acceleration") {
+ formulaHighlight.textContent = "a = F / m";
+ descriptionText.textContent = "To calculate acceleration, divide the force acting on an object by its mass.";
+ exampleText.textContent = "Example: F = 6 N, m = 2 kg yields a = 3 m/s²";
+
+
+ addStep(stepList, "Identify the values for force (F) and mass (m).");
+ addStep(stepList, "Substitute them into the equation: a = F / m.");
+ addStep(stepList, "Divide the force by the mass to obtain the acceleration (a) in m/s².");
+ }
+ }
+
+
+ function addStep(stepList, stepText) {
+ const listItem = document.createElement("li");
+ listItem.innerHTML = `<i class="fas fa-check-circle"></i> ${stepText}`;
+ stepList.appendChild(listItem);
+ }
+
+
+ function calculate() {
+ const mode = document.querySelector('input[name="calcMode"]:checked').value;
+ let resultText = "";
+
+
+ if (mode === "force") {
+ const mass = parseFloat(document.getElementById("mass").value);
+ const acceleration = parseFloat(document.getElementById("acceleration").value);
+ if (isNaN(mass) || isNaN(acceleration)) {
+ resultText = '<i class="fas fa-exclamation-triangle"></i> Please provide valid mass and acceleration values.';
+ } else {
+ const force = mass * acceleration;
+ resultText = `<i class="fas fa-check-circle"></i> Force F = ${force.toFixed(2)} N`;
+ addToCalculationHistory("force", mass, acceleration, force);
+ }
+ } else if (mode === "mass") {
+ const force = parseFloat(document.getElementById("force").value);
+ const acceleration = parseFloat(document.getElementById("acceleration").value);
+ if (isNaN(force) || isNaN(acceleration) || acceleration === 0) {
+ resultText = '<i class="fas fa-exclamation-triangle"></i> Please provide valid force and acceleration values.';
+ } else {
+ const mass = force / acceleration;
+ resultText = `<i class="fas fa-check-circle"></i> Mass m = ${mass.toFixed(2)} kg`;
+ addToCalculationHistory("mass", force, acceleration, mass);
+ }
+ } else if (mode === "acceleration") {
+ const force = parseFloat(document.getElementById("force").value);
+ const mass = parseFloat(document.getElementById("mass").value);
+ if (isNaN(force) || isNaN(mass) || mass === 0) {
+ resultText = '<i class="fas fa-exclamation-triangle"></i> Please provide valid force and mass values.';
+ } else {
+ const acceleration = force / mass;
+ resultText = `<i class="fas fa-check-circle"></i> Acceleration a = ${acceleration.toFixed(2)} m/s²`;
+ addToCalculationHistory("acceleration", force, mass, acceleration);
+ }
+ }
+
+
+ document.getElementById("result").innerHTML = resultText;
+ }
+
+
+ function addToCalculationHistory(mode, val1, val2, result) {
+ const historyList = document.getElementById("history-list");
+ const noHistory = historyList.querySelector(".no-history");
+ if (noHistory) noHistory.remove();
+
+
+ const historyItem = document.createElement("div");
+ historyItem.className = "history-item";
+
+
+ let detailText = "";
+ if (mode === "force") {
+ detailText = `<p><i class="fas fa-calculator"></i> Mass: ${val1} kg, Acceleration: ${val2} m/s² → Force: ${result.toFixed(2)} N</p>`;
+ } else if (mode === "mass") {
+ detailText = `<p><i class="fas fa-calculator"></i> Force: ${val1} N, Acceleration: ${val2} m/s² → Mass: ${result.toFixed(2)} kg</p>`;
+ } else if (mode === "acceleration") {
+ detailText = `<p><i class="fas fa-calculator"></i> Force: ${val1} N, Mass: ${val2} kg → Acceleration: ${result.toFixed(2)} m/s²</p>`;
+ }
+
+
+ historyItem.innerHTML = detailText;
+ historyList.prepend(historyItem);
+ }
+
+
+ function clearHistory() {
+ const historyList = document.getElementById("history-list");
+ historyList.innerHTML = '<p class="no-history">Your calculation history will appear here.</p>';
+ }
+
+
+ function toggleAnswer(button) {
+ const answer = button.nextElementSibling;
+ if (answer.style.display === "none") {
+ answer.style.display = "block";
+ button.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Answer';
+ } else {
+ answer.style.display = "none";
+ button.innerHTML = '<i class="fas fa-lightbulb"></i> Show Answer';
+ }
+ }
+
+
+ function openPopup(imageSrc) {
+ const popupImage = document.getElementById('popup-image');
+ popupImage.src = imageSrc;
+ const popupContainer = document.querySelector('.popup-image-container');
+ popupContainer.style.display = 'flex';
+ }
+
+
+ function closePopup() {
+ const popupContainer = document.querySelector('.popup-image-container');
+ popupContainer.style.display = 'none';
+ }
+
+
+ document.addEventListener("DOMContentLoaded", updateForm);
+ </script>
+</body>
+
+
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L'Hôpital's Rule</title>
+  <link rel="stylesheet" href="Hospital_rule.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-left">
+        <h1><i class="fas fa-divide"></i> L'Hôpital's Rule</h1>
+      </div>
+      <div class="header-right">
+        <a href="/pages/calculus.html" class="back-home-btn"><i class="fas fa-arrow-left"></i> Back to Calculus</a>
+      </div>
+    </header>
+
+    <main class="formula-dashboard">
+
+      <!-- Calculation Inputs -->
+      <section class="formula-card calculation-inputs">
+        <h2><i class="fas fa-calculator"></i> Calculation Inputs</h2>
+        <form id="lhopital-form">
+          <label for="numerator">f(x):</label>
+          <input type="text" id="numerator" placeholder="e.g., x^2 - 4" />
+          <label for="denominator">g(x):</label>
+          <input type="text" id="denominator" placeholder="e.g., x - 2" />
+          <label for="limit-x">x →</label>
+          <input type="number" id="limit-x" placeholder="e.g., 2" />
+          <button type="button" onclick="calculateLhopital()">
+            <i class="fas fa-equals"></i> Apply L'Hôpital's Rule
+          </button>
+        </form>
+        <div id="lhopital-result" class="result"></div>
+      </section>
+
+      <!-- Step-by-step Solution -->
+      <section class="formula-card step-by-step-solution">
+        <h2><i class="fas fa-tasks"></i> Step-by-Step Solution</h2>
+        <ol id="lhopital-step-list"></ol>
+      </section>
+
+      <!-- Description -->
+      <section class="formula-card formula-description">
+        <h2><i class="fas fa-info-circle"></i> Description of the Formula</h2>
+        <p>If <strong>lim</strong> f(x)/g(x) results in an indeterminate form like <strong>0/0</strong> or <strong>∞/∞</strong>, L’Hôpital’s Rule allows you to differentiate the numerator and denominator separately:</p>
+        <p class="formula">lim<sub>x→a</sub> [f(x)/g(x)] = lim<sub>x→a</sub> [f'(x)/g'(x)]</p>
+      </section>
+
+      <!-- History -->
+      <section class="formula-card formula-history">
+        <h2><i class="fas fa-history"></i> Formula History</h2>
+        <p>L’Hôpital's Rule was introduced in the 17th century by the French mathematician Guillaume de l'Hôpital, based on work by Johann Bernoulli. It’s one of the key tools for resolving indeterminate forms in limits.</p>
+      </section>
+
+      <!-- Video Tutorial -->
+      <section class="formula-card video-tutorial">
+        <h2><i class="fab fa-youtube"></i> Video Tutorial</h2>
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/hU9IcbtSnNc" title="L'Hôpital's Rule Tutorial" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </section>
+
+      <!-- Practice Problems -->
+      <section class="formula-card quizzes-practice-problems">
+        <h2><i class="fas fa-question-circle"></i> Practice Problems</h2>
+        <div class="problem">
+          <p><strong>Problem 1:</strong> Evaluate lim<sub>x→0</sub> (sin(x)/x)</p>
+          <button onclick="toggleAnswer(this)"><i class="fas fa-lightbulb"></i> Show Answer</button>
+          <p class="answer" style="display: none;">1</p>
+        </div>
+        <div class="problem">
+          <p><strong>Problem 2:</strong> Evaluate lim<sub>x→∞</sub> (x / e<sup>x</sup>)</p>
+          <button onclick="toggleAnswer(this)"><i class="fas fa-lightbulb"></i> Show Answer</button>
+          <p class="answer" style="display: none;">0</p>
+        </div>
+      </section>
+
+      <!-- Calculation History -->
+      <section class="formula-card calculation-history">
+        <h2><i class="fas fa-list"></i> Calculation History</h2>
+        <div id="lhopital-history-list">
+          <p class="no-history">Your calculation history will appear here.</p>
+        </div>
+        <button id="clear-lhopital-history" onclick="clearLhopitalHistory()"><i class="fas fa-trash"></i> Clear History</button>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <p>© 2025 CalcuNation | Calculus Tools</p>
+    </footer>
+  </div>
+
+  <script>
+    function parseMath(expr, x) {
+      try {
+        return Function("x", "return " + expr.replace(/\^/g, "**"))(x);
+      } catch (e) {
+        return NaN;
+      }
+    }
+
+    function derivative(expr, x) {
+      const h = 0.00001;
+      const fxh = parseMath(expr, x + h);
+      const fx = parseMath(expr, x);
+      return (fxh - fx) / h;
+    }
+
+    function calculateLhopital() {
+      const fx = document.getElementById("numerator").value;
+      const gx = document.getElementById("denominator").value;
+      const x = parseFloat(document.getElementById("limit-x").value);
+
+      if (!fx || !gx || isNaN(x)) {
+        document.getElementById("lhopital-result").innerHTML = '<i class="fas fa-exclamation-triangle"></i> Please fill in all fields with valid values.';
+        return;
+      }
+
+      const fxVal = parseMath(fx, x);
+      const gxVal = parseMath(gx, x);
+
+      const indeterminate = (isNaN(fxVal) || isNaN(gxVal)) || ((fxVal === 0 && gxVal === 0) || (!isFinite(fxVal) && !isFinite(gxVal)));
+
+      if (indeterminate) {
+        const dfx = derivative(fx, x);
+        const dgx = derivative(gx, x);
+        const result = dfx / dgx;
+
+        document.getElementById("lhopital-result").innerHTML = `<i class="fas fa-check-circle"></i> Result using L’Hôpital’s Rule: <strong>${result.toFixed(6)}</strong>`;
+        showSteps(fx, gx, x, fxVal, gxVal, dfx, dgx, result);
+        addToHistory(fx, gx, x, result);
+      } else {
+        const result = fxVal / gxVal;
+        document.getElementById("lhopital-result").innerHTML = `<i class="fas fa-check-circle"></i> No indeterminate form. Direct limit result: <strong>${result.toFixed(6)}</strong>`;
+        showSteps(fx, gx, x, fxVal, gxVal, null, null, result);
+        addToHistory(fx, gx, x, result);
+      }
+    }
+
+    function showSteps(fx, gx, x, fxVal, gxVal, dfx, dgx, result) {
+      const stepList = document.getElementById("lhopital-step-list");
+      stepList.innerHTML = `
+        <li>Step 1: f(x) = ${fx}, g(x) = ${gx}</li>
+        <li>Step 2: Evaluate f(${x}) = ${fxVal.toFixed(6)}, g(${x}) = ${gxVal.toFixed(6)}</li>
+        ${dfx !== null ? `<li>Step 3: Apply L’Hôpital’s Rule since it's indeterminate</li>
+        <li>Step 4: f'(${x}) ≈ ${dfx.toFixed(6)}, g'(${x}) ≈ ${dgx.toFixed(6)}</li>
+        <li>Step 5: Result = f'(${x}) / g'(${x}) = ${result.toFixed(6)}</li>` :
+        `<li>Step 3: No need for L’Hôpital’s Rule, direct result = ${result.toFixed(6)}</li>`}
+      `;
+    }
+
+    function addToHistory(fx, gx, x, result) {
+      const history = document.getElementById("lhopital-history-list");
+      const noHistory = document.querySelector(".no-history");
+      if (noHistory) noHistory.remove();
+
+      const entry = document.createElement("p");
+      entry.innerHTML = `<i class="fas fa-check"></i> lim x→${x} [${fx}/${gx}] ≈ ${result.toFixed(6)}`;
+      history.prepend(entry);
+    }
+
+    function clearLhopitalHistory() {
+      document.getElementById("lhopital-history-list").innerHTML = '<p class="no-history">Your calculation history will appear here.</p>';
+    }
+
+    function toggleAnswer(button) {
+      const answer = button.nextElementSibling;
+      if (answer.style.display === "none" || answer.style.display === "") {
+        answer.style.display = "block";
+        button.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Answer';
+      } else {
+        answer.style.display = "none";
+        button.innerHTML = '<i class="fas fa-lightbulb"></i> Show Answer';
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      window.calculateLhopital = calculateLhopital;
+      window.clearLhopitalHistory = clearLhopitalHistory;
+    });
+  </script>
+</body>
+
+</html>

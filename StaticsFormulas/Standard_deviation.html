@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Standard Deviation Calculator</title>
+  <link rel="stylesheet" href="Standard_deviation.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-left">
+        <h1 class="title"><i class="fas fa-square-root-alt"></i> Standard Deviation Calculator (σ)</h1>
+      </div>
+      <div class="header-right">
+        <a href="/pages/statistics.html" class="back-home-btn"><i class="fas fa-arrow-left"></i> Back to Statistics</a>
+      </div>
+    </header>
+
+    <main class="formula-dashboard">
+
+      <!-- Calculation Input -->
+      <section class="formula-card calculation-inputs">
+        <h2><i class="fas fa-calculator"></i> Calculation Inputs</h2>
+        <form id="std-form">
+          <label for="std-numbers"><i class="fas fa-list-ol"></i> Enter numbers (comma-separated):</label>
+          <input type="text" id="std-numbers" placeholder="e.g., 5, 10, 15, 20" />
+          <button type="button" onclick="calculateStandardDeviation()">
+            <i class="fas fa-equals"></i> Calculate σ
+          </button>
+        </form>
+        <div id="std-result" class="result"></div>
+      </section>
+
+      <!-- Step-by-step Solution -->
+      <section class="formula-card step-by-step-solution">
+        <h2><i class="fas fa-tasks"></i> Step-by-Step Solution</h2>
+        <ol id="std-step-list"></ol>
+      </section>
+
+      <!-- Description -->
+      <section class="formula-card formula-description">
+        <h2><i class="fas fa-info-circle"></i> Description of the Formula</h2>
+        <p>Standard Deviation (σ) measures the dispersion or spread of a data set. It shows how much the values deviate from the mean (μ).</p>
+      </section>
+
+      <!-- History -->
+      <section class="formula-card formula-history">
+        <h2><i class="fas fa-history"></i> Formula History</h2>
+        <p>The standard deviation was introduced by Karl Pearson in the late 19th century as a robust measure of variability in datasets.</p>
+      </section>
+
+      <!-- Video -->
+      <section class="formula-card video-tutorial">
+        <h2><i class="fab fa-youtube"></i> Video Tutorial</h2>
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/spUNpyF58BY" title="Standard Deviation Explained" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </section>
+
+      <!-- Practice Problems -->
+      <section class="formula-card quizzes-practice-problems">
+        <h2><i class="fas fa-question-circle"></i> Practice Problems</h2>
+        <div class="problem">
+          <p><strong>Problem 1:</strong> Find σ for 2, 4, 4, 4, 5, 5, 7, 9</p>
+          <button onclick="toggleAnswer(this)"><i class="fas fa-lightbulb"></i> Show Answer</button>
+          <p class="answer" style="display: none;">σ = 2</p>
+        </div>
+        <div class="problem">
+          <p><strong>Problem 2:</strong> Find the standard deviation for 10, 12, 23, 23, 16, 23, 21, 16</p>
+          <button onclick="toggleAnswer(this)"><i class="fas fa-lightbulb"></i> Show Answer</button>
+          <p class="answer" style="display: none;">σ ≈ 4.62</p>
+        </div>
+      </section>
+
+      <!-- Calculation History -->
+      <section class="formula-card calculation-history">
+        <h2><i class="fas fa-list"></i> Calculation History</h2>
+        <div id="std-history-list">
+          <p class="no-history">Your calculation history will appear here.</p>
+        </div>
+        <button id="clear-std-history" onclick="clearStdHistory()"><i class="fas fa-trash"></i> Clear History</button>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <p>© 2025 CalcuNation | Statistics Formulas</p>
+    </footer>
+  </div>
+
+  <script>
+    function calculateStandardDeviation() {
+      const input = document.getElementById("std-numbers").value;
+      const values = input.split(",").map(n => parseFloat(n.trim())).filter(n => !isNaN(n));
+
+      if (values.length === 0) {
+        document.getElementById("std-result").innerHTML =
+          '<i class="fas fa-exclamation-triangle"></i> Please enter valid numbers.';
+        return;
+      }
+
+      const n = values.length;
+      const mean = values.reduce((a, b) => a + b, 0) / n;
+      const squaredDiffs = values.map(x => (x - mean) ** 2);
+      const variance = squaredDiffs.reduce((a, b) => a + b, 0) / n;
+      const stdDev = Math.sqrt(variance);
+
+      document.getElementById("std-result").innerHTML =
+        `<i class="fas fa-check-circle"></i> σ = √[(Σ(x - μ)²) / N] = √(${variance.toFixed(4)}) = <strong>${stdDev.toFixed(4)}</strong>`;
+
+      updateStdSteps(values, mean, squaredDiffs, variance, stdDev);
+      addToStdHistory(values, stdDev);
+    }
+
+    function updateStdSteps(values, mean, squaredDiffs, variance, stdDev) {
+      const steps = document.getElementById("std-step-list");
+      steps.innerHTML = `
+        <li>Step 1: Values = ${values.join(", ")}</li>
+        <li>Step 2: Mean (μ) = ${mean.toFixed(4)}</li>
+        <li>Step 3: Squared differences = [${squaredDiffs.map(x => x.toFixed(4)).join(", ")}]</li>
+        <li>Step 4: Variance = Σ(x - μ)² / N = ${variance.toFixed(4)}</li>
+        <li>Step 5: Standard Deviation (σ) = √(${variance.toFixed(4)}) = ${stdDev.toFixed(4)}</li>
+      `;
+    }
+
+    function addToStdHistory(values, stdDev) {
+      const historyList = document.getElementById("std-history-list");
+      const noHistory = document.querySelector(".no-history");
+      if (noHistory) noHistory.remove();
+
+      const entry = document.createElement("p");
+      entry.innerHTML = `<i class="fas fa-check"></i> σ of [${values.join(", ")}] = ${stdDev.toFixed(4)}`;
+      historyList.prepend(entry);
+    }
+
+    function clearStdHistory() {
+      document.getElementById("std-history-list").innerHTML = '<p class="no-history">Your calculation history will appear here.</p>';
+    }
+
+    function toggleAnswer(button) {
+      const answer = button.nextElementSibling;
+      if (answer.style.display === "none" || answer.style.display === "") {
+        answer.style.display = "block";
+        button.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Answer';
+      } else {
+        answer.style.display = "none";
+        button.innerHTML = '<i class="fas fa-lightbulb"></i> Show Answer';
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      window.calculateStandardDeviation = calculateStandardDeviation;
+      window.clearStdHistory = clearStdHistory;
+    });
+  </script>
+</body>
+
+</html>

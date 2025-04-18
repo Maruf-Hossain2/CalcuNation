@@ -1,0 +1,314 @@
+/* General Reset and Improved Theme */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #000000;
+    color: #f0f0f0;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+   }
+  
+   /* Animated Background */
+   body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    background-size: 400% 400%;
+    z-index: -1;
+    animation: backgroundAnimation 15s ease infinite;
+   }
+  
+   @keyframes backgroundAnimation {
+    0% {
+    background-position: 0% 50%;
+    }
+  
+    50% {
+    background-position: 100% 50%;
+    }
+  
+    100% {
+    background-position: 0% 50%;
+    }
+   }
+  
+   .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: rgba(30, 30, 30, 0.8);
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+   }
+  
+   .container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.9);
+   }
+  
+   h1 {
+    text-align: center;
+    color: #00bcd4;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(0, 188, 212, 0.9);
+   }
+  
+   /* Form Styles */
+   .input-group {
+    margin-bottom: 20px;
+   }
+  
+   label {
+    display: block;
+    margin-bottom: 10px;
+    color: #bdbdbd;
+    font-weight: 600;
+    transition: color 0.3s ease;
+   }
+  
+   label:hover {
+    color: #fff;
+   }
+  
+   select,
+   input[type="number"],
+   input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #424242;
+    background-color: #212121;
+    color: #e0e0e0;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+   }
+  
+   select:focus,
+   input[type="number"]:focus,
+   input[type="text"]:focus {
+    border-color: #ff4081;
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 64, 129, 0.7);
+    transform: scale(1.02);
+   }
+  
+   /* Result Styles */
+   #result {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: rgba(33, 33, 33, 0.9);
+    border-radius: 12px;
+    font-weight: bold;
+    color: #69f0ae;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(105, 240, 174, 0.7);
+    transition: transform 0.3s ease;
+   }
+  
+   #result:hover {
+    transform: scale(1.05);
+   }
+  
+   /* Unit Description Styles */
+   #unitDescription,
+   #unitHistory {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: rgba(30, 30, 30, 0.8);
+    border-radius: 12px;
+    color: #b0bec5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+    line-height: 1.7;
+    transition: transform 0.3s ease;
+   }
+  
+   #unitDescription:hover,
+   #unitHistory:hover {
+    transform: scale(1.03);
+   }
+  
+   #unitDescription h3,
+   #unitHistory h3 {
+    color: #00bcd4;
+    margin-bottom: 15px;
+    text-shadow: 0 0 5px rgba(0, 188, 212, 0.7);
+    display: flex;
+    align-items: center;
+   }
+  
+   #unitDescription h3 i,
+   #unitHistory h3 i {
+    margin-right: 8px;
+   }
+  
+   /* Datalist Styling */
+   datalist option {
+    background-color: #212121;
+    color: #e0e0e0;
+   }
+  
+   /* Swap Button Styles */
+   #swapButton {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    background-color: #ff4081;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(255, 64, 129, 0.5);
+   }
+  
+   #swapButton:hover {
+    background-color: #d81b60;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(255, 64, 129, 0.7);
+   }
+  
+   #swapButton:active {
+    transform: scale(0.95);
+   }
+  
+   /* History List Styles */
+   #historyContainer {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: rgba(30, 30, 30, 0.8);
+    border-radius: 12px;
+    color: #b0bec5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+   }
+  
+   #historyList {
+    list-style: none;
+    padding: 0;
+   }
+  
+   #historyList li {
+    padding: 8px;
+    border-bottom: 1px solid #424242;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   }
+  
+   #historyList li:last-child {
+    border-bottom: none;
+   }
+  
+   .delete-history-item {
+    background-color: #e53935;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+   }
+  
+   .delete-history-item:hover {
+    background-color: #b71c1c;
+   }
+  
+   #clearHistory {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: #e53935;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+   }
+  
+   #clearHistory:hover {
+    background-color: #b71c1c;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(183, 28, 28, 0.7);
+   }
+  
+   #clearHistory:active {
+    transform: scale(0.95);
+   }
+  
+   /* Improved Media Query for Responsiveness */
+   @media (max-width: 768px) {
+    .container {
+    padding: 15px;
+    margin: 10px auto;
+    }
+  
+    h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    }
+  
+    label {
+    margin-bottom: 8px;
+    font-size: 16px;
+    }
+  
+    select,
+    input[type="number"],
+    input[type="text"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    }
+  
+    #result {
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 18px;
+    }
+  
+    #unitDescription,
+    #unitHistory {
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 16px;
+    }
+  
+    #swapButton,
+    #clearHistory {
+    padding: 10px;
+    font-size: 16px;
+    }
+   }
+  
+   /* Enhanced Focus and Hover States */
+   select:hover,
+   input[type="number"]:hover,
+   input[type="text"]:hover {
+    border-color: #64b5f6;
+    /* Light blue on hover */
+   }
+  
+   #swapButton:focus,
+   #clearHistory:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(100, 181, 246, 0.7);
+   }
+  

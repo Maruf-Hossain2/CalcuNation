@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Statistics Formulas - Unlock Statistical Insights</title>
+ <link rel="stylesheet" href="../styles/formulas.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+ integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+ crossorigin="anonymous" referrerpolicy="no-referrer" />
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+
+<body>
+ <header class="header">
+ <div class="header-left">
+ <h1 class="title"><i class="fas fa-chart-bar"></i> Statistics Formulas</h1>
+ </div>
+ <div class="header-right">
+ <a href="../index.html" class="back-home-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+ </div>
+ </header>
+
+
+ <section class="intro">
+ <p>A comprehensive collection of statistical formulas, from basic descriptive statistics to advanced inferential
+ methods. Explore each formula for detailed insights and applications <sup>1</sup>.</p>
+ </section>
+
+
+ <section class="formula-categories">
+ <h2><i class="fas fa-list-ul"></i> Formula Categories</h2>
+ <ul>
+ <li><a href="#descriptive"><i class="fas fa-chart-pie"></i> Descriptive Statistics</a></li>
+ <li><a href="#probability"><i class="fas fa-percent"></i> Probability</a></li>
+ <li><a href="#distributions"><i class="fas fa-bell"></i> Distributions</a></li>
+ <li><a href="#inference"><i class="fas fa-search"></i> Statistical Inference</a></li>
+ <li><a href="#regression"><i class="fas fa-chart-line"></i> Regression</a></li>
+ <li><a href="#correlation"><i class="fas fa-link"></i> Correlation</a></li>
+ </ul>
+ </section>
+
+
+ <main class="formulas-container">
+ <section id="descriptive" class="category-section">
+ <h2><i class="fas fa-chart-pie"></i> Descriptive Statistics</h2>
+ <div class="formula-card">
+ <h3>Mean (Arithmetic Average) <span class="bookmark-star" data-formula="x̄ = (Σx) / n"
+ data-topic="Descriptive Statistics" data-url="/StaticsFormulas/Mean.html">☆</span></h3>
+ <p class="formula">x̄ = (Σx) / n</p>
+ <p class="formula-description">Where Σx is the sum of all values, and n is the number of values.</p>
+ <a href="/StaticsFormulas/Mean.html" class="details-link">Explore <i class="fas fa-arrow-right"></i></a>
+ </div>
+ <div class="formula-card">
+ <h3>Standard Deviation <span class="bookmark-star" data-formula="σ = √[(Σ(x - μ)²) / N]"
+ data-topic="Descriptive Statistics" data-url="/StaticsFormulas/Standard_deviation.html">☆</span></h3>
+ <p class="formula">σ = √[(Σ(x - μ)²) / N]</p>
+ <p class="formula-description">Where μ is the population mean, and N is the population size.</p>
+ <a href="/StaticsFormulas/Standard_deviation.html" class="details-link">Explore <i
+ class="fas fa-arrow-right"></i></a>
+ </div>
+ <div class="formula-card">
+ <h3>Variance <span class="bookmark-star" data-formula="σ² = Σ(x - μ)² / N"
+ data-topic="Descriptive Statistics" data-url="../formulas/variance.html">☆</span></h3>
+ <p class="formula">σ² = Σ(x - μ)² / N</p>
+ <p class="formula-description">A measure of how spread out the data is from its mean.</p>
+ <a href="../formulas/variance.html" class="details-link">Explore <i class="fas fa-arrow-right"></i></a>
+ </div>
+ </section>
+
+
+ <section id="probability" class="category-section">
+ <h2><i class="fas fa-percent"></i> Probability</h2>
+ <div class="formula-card">
+ <h3>Conditional Probability <span class="bookmark-star" data-formula="P(A|B) = P(A∩B) / P(B)"
+ data-topic="Probability" data-url="../formulas/conditional-probability.html">☆</span></h3>
+ <p class="formula">P(A|B) = P(A∩B) / P(B)</p>
+ <p class="formula-description">The probability of event A occurring, given that event B has occurred.</p>
+ <a href="../formulas/conditional-probability.html" class="details-link">Explore <i
+ class="fas fa-arrow-right"></i></a>
+ </div>
+ <div class="formula-card">
+ <h3>Bayes' Theorem <span class="bookmark-star" data-formula="P(A|B) = [P(B|A) × P(A)] / P(B)"
+ data-topic="Probability" data-url="../formulas/bayes-theorem.html">☆</span></h3>
+ <p class="formula">P(A|B) = [P(B|A) × P(A)] / P(B)</p>
+ <p class="formula-description">Calculates the probability of a hypothesis given observed evidence.</p>
+ <a href="../formulas/bayes-theorem.html" class="details-link">Explore <i class="fas fa-arrow-right"></i></a>
+ </div>
+ </section>
+
+
+ <section id="distributions" class="category-section">
+ <h2><i class="fas fa-bell"></i> Distributions</h2>
+ <div class="formula-card">
+ <h3>Normal Distribution PDF <span class="bookmark-star" data-formula="f(x) = (1/σ√2π) × e^(-(x-μ)²/2σ²)"
+ data-topic="Distributions" data-url="../formulas/normal-distribution.html">☆</span></h3>
+ <p class="formula">f(x) = (1/σ√2π) × e^(-(x-μ)²/2σ²)</p>
+ <p class="formula-description">Describes the probability density function of a normal distribution.</p>
+ <a href="../formulas/normal-distribution.html" class="details-link">Explore <i
+ class="fas fa-arrow-right"></i></a>
+ </div>
+ <div class="formula-card">
+ <h3>Binomial Probability <span class="bookmark-star" data-formula="P(X=k) = C(n,k) × p^k × (1-p)^(n-k)"
+ data-topic="Distributions" data-url="../formulas/binomial-probability.html">☆</span></h3>
+ <p class="formula">P(X=k) = C(n,k) × p^k × (1-p)^(n-k)</p>
+ <p class="formula-description">Gives the probability of k successes in n trials.</p>
+ <a href="../formulas/binomial-probability.html" class="details-link">Explore <i
+ class="fas fa-arrow-right"></i></a>
+ </div>
+ </section>
+
+
+ <section id="inference" class="category-section">
+ <h2><i class="fas fa-search"></i> Statistical Inference</h2>
+ <div class="formula-card">
+ <h3>Confidence Interval <span class="bookmark-star" data-formula="x̄ ± (z × σ/√n)"
+ data-topic="Statistical Inference" data-url="../formulas/confidence-interval.html">☆</span></h3>
+ <p class="formula">x̄ ± (z × σ/√n)</p>
+ <p class="formula-description">Provides a range within which a population parameter is likely to fall.</p>
+ <a href="../formulas/confidence-interval.html" class="details-link">Explore <i
+ class="fas fa-arrow-right"></i></a>
+ </div>
+ <div class="formula-card">
+ <h3>Sample Size Determination <span class="bookmark-star" data-formula="n = (z²σ²) / E²"
+ data-topic="Statistical Inference" data-url="../formulas/sample-size.html">☆</span></h3>
+ <p class="formula">n = (z²σ²) / E²</p>
+ <p class="formula-description">Calculates the necessary sample size for a desired margin of error.</p>
+ <a href="../formulas/sample-size.html" class="details-link">Explore <i class="fas fa-arrow-right"></i></a>
+ </div>
+ </section>
+
+
+ <section id="regression" class="category-section">
+ <h2><i class="fas fa-chart-line"></i> Regression</h2>
+ <div class="formula-card">
+ <h3>Linear Regression Equation <span class="bookmark-star" data-formula="ŷ = β₀ + β₁x" data-topic="Regression"
+ data-url="../formulas/linear-regression.html">☆</span></h3>
+ <p class="formula">ŷ = β₀ + β₁x</p>
+ <p class="formula-description">Models the relationship between a dependent and independent variable.</p>
+ <a href="../formulas/linear-regression.html" class="details-link">Explore <i
+ class="fas fa-arrow-right"></i></a>
+ </div>
+ <div class="formula-card">
+ <h3>Least Squares Regression Line <span class="bookmark-star" data-formula="b₁ = r(Sy/Sx)" data-topic="Regression"
+ data-url="../formulas/least-squares.html">☆</span></h3>
+ <p class="formula">b₁ = r(Sy/Sx)</p>
+ <p class="formula-description">Determines the line of best fit for a set of data points.</p>
+ <a href="../formulas/least-squares.html" class="details-link">Explore <i class="fas fa-arrow-right"></i></a>
+ </div>
+ </section>
+
+
+ <section id="correlation" class="category-section">
+ <h2><i class="fas fa-link"></i> Correlation</h2>
+ <div class="formula-card">
+ <h3>Pearson Correlation Coefficient <span class="bookmark-star"
+ data-formula="r = Σ((x-x̄)(y-ȳ)) / √[Σ(x-x̄)²Σ(y-ȳ)²]" data-topic="Correlation"
+ data-url="../formulas/pearson-correlation.html">☆</span></h3>
+ <p class="formula">r = Σ((x-x̄)(y-ȳ)) / √[Σ(x-x̄)²Σ(y-ȳ)²]</p>
+ <p class="formula-description">Measures the strength and direction of a linear relationship.</p>
+ <a href="../formulas/pearson-correlation.html" class="details-link">Explore <i
+ class="fas fa-arrow-right"></i></a>
+ </div>
+ <div class="formula-card">
+ <h3>Spearman's Rank Correlation <span class="bookmark-star" data-formula="ρ = 1 - (6Σd²) / (n(n² - 1))"
+ data-topic="Correlation" data-url="../formulas/spearman-correlation.html">☆</span></h3>
+ <p class="formula">ρ = 1 - (6Σd²) / (n(n² - 1))</p>
+ <p class="formula-description">Measures the monotonic relationship between two ranked variables.</p>
+ <a href="../formulas/spearman-correlation.html" class="details-link">Explore <i
+ class="fas fa-arrow-right"></i></a>
+ </div>
+ </section>
+ </main>
+
+
+ <footer class="footer">
+ <p>&copy; 2025 Statistics Formulas. All rights reserved.</p>
+ </footer>
+ <script src="/bookmarks.js"></script>
+</body>
+
+
+</html>

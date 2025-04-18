@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BMI Calculator</title>
+    <link rel="stylesheet" href="bmi.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Adolphe_Qu%C3%A9telet_by_Joseph-Arnold_Demannez.jpg/440px-Adolphe_Qu%C3%A9telet_by_Joseph-Arnold_Demannez.jpg" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <h1 class="title"><i class="fas fa-heartbeat"></i> BMI Calculator</h1>
+            </div>
+            <div class="header-right">
+                <a href="/pages/biology.html" class="back-home-btn"><i class="fas fa-arrow-left"></i> Back to Biology</a>
+            </div>
+        </header>
+
+        <main class="formula-dashboard">
+            <!-- Calculation Card -->
+            <section class="formula-card calculation-inputs">
+                <h2><i class="fas fa-calculator"></i> Calculation Inputs</h2>
+                <form id="bmi-form">
+                    <div class="input-group">
+                        <label for="weight"><i class="fas fa-weight"></i> Weight (kg):</label>
+                        <input type="number" id="weight" name="weight" placeholder="Enter weight in kg" />
+                    </div>
+                    <div class="input-group">
+                        <label for="height"><i class="fas fa-ruler"></i> Height (m):</label>
+                        <input type="number" id="height" name="height" placeholder="Enter height in meters" />
+                    </div>
+                    <button type="button" onclick="calculateBMI()">
+                        <i class="fas fa-bolt"></i> Calculate
+                    </button>
+                </form>
+                <div id="result" class="result"></div>
+            </section>
+
+            <!-- Step-by-step Solution Card -->
+            <section class="formula-card step-by-step-solution">
+                <h2><i class="fas fa-tasks"></i> Step-by-Step Solution</h2>
+                <div class="solution-content">
+                    <p id="formula-highlight" class="formula-highlight">BMI = weight (kg) / [height (m)]²</p>
+                    <ol id="step-list"></ol>
+                    <div class="example">
+                        <i class="fas fa-flask"></i>
+                        <strong id="example-text"></strong>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Description Card -->
+            <section class="formula-card formula-description">
+                <h2><i class="fas fa-info-circle"></i> Description of the Formula</h2>
+                <p id="formula-description-text"></p>
+            </section>
+
+            <!-- Formula History Card -->
+            <section class="formula-card formula-history">
+                <h2><i class="fas fa-history"></i> Formula History</h2>
+                <div class="history-header">
+                    <img src="/img/adolphe quetelet.jpg" alt="Adolphe Quetelet" class="AdolpheQuetlet-image" onclick="openPopup('/img/adolphe quetelet.png')" style="cursor: pointer;">
+                    <div>
+                        <p>The BMI formula was developed by Adolphe Quetelet in the 19th century. It is widely used in healthcare to assess body weight relative to height.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Video Tutorial Card -->
+            <section class="formula-card video-tutorial">
+                <h2><i class="fab fa-youtube"></i> Video Tutorial</h2>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/TBzF-0xaLfY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </section>
+
+            <!-- Practice Problems Card -->
+            <section class="formula-card quizzes-practice-problems">
+                <h2><i class="fas fa-question-circle"></i> Practice Problems</h2>
+                <div class="problem">
+                    <p><i class="fas fa-exclamation-circle"></i> <strong>Problem 1:</strong> A person weighs 80 kg and has a height of 1.75 m. Calculate their BMI.</p>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">
+                        <i class="fas fa-lightbulb"></i> Show Answer
+                    </button>
+                    <p class="answer" style="display: none;">BMI = 80 / (1.75 × 1.75) = 26.12 (Overweight)</p>
+                </div>
+                <div class="problem">
+                    <p><i class="fas fa-exclamation-circle"></i> <strong>Problem 2:</strong> A person has a BMI of 22 and a height of 1.80 m. What is their weight?</p>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">
+                        <i class="fas fa-lightbulb"></i> Show Answer
+                    </button>
+                    <p class="answer" style="display: none;">Weight = BMI × (Height)² = 22 × (1.80 × 1.80) = 71.28 kg</p>
+                </div>
+            </section>
+
+            <!-- Calculation History Card -->
+            <section class="formula-card calculation-history">
+                <h2><i class="fas fa-list"></i> Calculation History</h2>
+                <div id="history-list">
+                    <p class="no-history">Your calculation history will appear here.</p>
+                </div>
+                <button id="clear-history" onclick="clearHistory()"><i class="fas fa-trash"></i> Clear History</button>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>© 2025 CalcuNation | Health Formulas</p>
+        </footer>
+    </div>
+
+    <div class="popup-image-container" onclick="closePopup()">
+        <img id="popup-image" src="" alt="Enlarged Image">
+    </div>
+
+    <script>
+        function updateSolutionAndDescription() {
+            const stepList = document.getElementById("step-list");
+            stepList.innerHTML = "";
+
+            addStep(stepList, "Enter weight in kilograms.");
+            addStep(stepList, "Enter height in meters.");
+            addStep(stepList, "Square the height value.");
+            addStep(stepList, "Divide the weight by the squared height.");
+            addStep(stepList,"The result is your BMI.");
+
+            document.getElementById("formula-description-text").textContent = "The Body Mass Index (BMI) is a measure of body fat based on weight and height. It helps determine whether a person is underweight, normal weight, overweight, or obese.";
+            document.getElementById("example-text").textContent = "Example: Weight = 80kg, Height = 1.75m, BMI = 26.12 (Overweight)";
+        }
+
+
+        function addStep(stepList, stepText) {
+            const listItem = document.createElement("li");
+            listItem.innerHTML = `<i class="fas fa-check-circle"></i> ${stepText}`;
+            stepList.appendChild(listItem);
+        }
+
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById("weight").value);
+            const height = parseFloat(document.getElementById("height").value);
+            let resultText = "";
+
+            if (isNaN(weight) || isNaN(height) || height <= 0) {
+                resultText = '<i class="fas fa-exclamation-triangle"></i> Please enter valid weight and height values.';
+            } else {
+                const bmi = weight / (height * height);
+                let category = "";
+                if (bmi < 18.5) category = "Underweight";
+                else if (bmi < 24.9) category = "Healthy Weight";
+                else if (bmi < 29.9) category = "Overweight";
+                else category = "Obese";
+                resultText = `<i class="fas fa-check-circle"></i> BMI = ${bmi.toFixed(2)} (${category})`;
+                addToCalculationHistory(weight, height, bmi);
+            }
+            document.getElementById("result").innerHTML = resultText;
+        }
+
+        function addToCalculationHistory(weight, height, bmi) {
+            const historyList = document.getElementById("history-list");
+            const noHistory = historyList.querySelector(".no-history");
+            if (noHistory) noHistory.remove();
+
+            const historyItem = document.createElement("div");
+            historyItem.className = "history-item";
+            historyItem.innerHTML = `<p><i class="fas fa-calculator"></i> Weight: ${weight} kg, Height: ${height} m → BMI: ${bmi.toFixed(2)}</p>`;
+            historyList.prepend(historyItem);
+        }
+
+        function clearHistory() {
+            const historyList = document.getElementById("history-list");
+            historyList.innerHTML = '<p class="no-history">Your calculation history will appear here.</p>';
+        }
+
+        function toggleAnswer(button) {
+            const answer = button.nextElementSibling;
+            if (answer.style.display === "none") {
+                answer.style.display = "block";
+                button.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Answer';
+            } else {
+                answer.style.display = "none";
+                button.innerHTML = '<i class="fas fa-lightbulb"></i> Show Answer';
+            }
+        }
+
+        function openPopup(imageSrc) {
+            const popupImage = document.getElementById('popup-image');
+            popupImage.src = imageSrc;
+            const popupContainer = document.querySelector('.popup-image-container');
+            popupContainer.style.display = 'flex';
+        }
+
+        function closePopup() {
+            const popupContainer = document.querySelector('.popup-image-container');
+            popupContainer.style.display = 'none';
+        }
+
+        document.addEventListener("DOMContentLoaded", updateSolutionAndDescription);
+    </script>
+</body>
+</html>

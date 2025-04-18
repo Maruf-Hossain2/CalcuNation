@@ -1,0 +1,324 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+/* Reset */
+* {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
+
+
+/* General Styles */
+body {
+ font-family: 'Poppins', sans-serif;
+ line-height: 1.6;
+ background: #f4f6f8;
+ color: #2c3e50;
+ margin: 0;
+ padding: 0;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ min-height: 100vh;
+}
+
+
+.container {
+ width: 90%;
+ max-width: 1200px;
+ margin: 20px auto;
+ background: #fff;
+ border-radius: 12px;
+ box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+ overflow: hidden;
+}
+
+
+/* Header Styles */
+.header {
+ background: #3498db;
+ color: white;
+ padding: 20px;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
+
+
+.header-left .title {
+ font-size: 24px;
+ margin: 0;
+}
+
+
+.header-right .back-home-btn {
+ color: white;
+ text-decoration: none;
+ padding: 10px 15px;
+ border-radius: 8px;
+ background: rgba(0, 0, 0, 0.1);
+ transition: background 0.3s ease;
+}
+
+
+.header-right .back-home-btn:hover {
+ background: rgba(0, 0, 0, 0.2);
+}
+
+
+/* Formula Dashboard Styles */
+.formula-dashboard {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+ gap: 20px;
+ padding: 20px;
+}
+
+
+.formula-card {
+ background: #f9f9f9;
+ border-radius: 8px;
+ padding: 20px;
+ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+
+.formula-card h2 {
+ font-size: 20px;
+ margin-bottom: 15px;
+ color: #333;
+ display: flex;
+ align-items: center;
+ gap: 8px;
+}
+
+
+/* Calculation Inputs Styles */
+.calculation-inputs .equation-selector,
+.calculation-inputs .calc-mode-selector {
+ margin-bottom: 20px;
+ border: 1px solid #ddd;
+ padding: 15px;
+ border-radius: 8px;
+}
+
+
+.calculation-inputs legend {
+ font-weight: 500;
+ color: #555;
+ margin-bottom: 10px;
+}
+
+
+.calculation-inputs label {
+ display: block;
+ margin-bottom: 5px;
+}
+
+
+/* Style radio buttons and labels to appear in a row */
+.calculation-inputs .equation-selector label,
+.calculation-inputs .calc-mode-selector label {
+ display: inline-block;
+ margin-right: 15px;
+}
+
+
+.calculation-inputs .input-group {
+ margin-bottom: 15px;
+}
+
+
+.calculation-inputs .input-group label {
+ display: block;
+ margin-bottom: 5px;
+ color: #555;
+}
+
+
+.calculation-inputs .input-group input[type="number"] {
+ width: 100%;
+ padding: 10px;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+ font-size: 16px;
+}
+
+
+.calculation-inputs button {
+ background: #27ae60;
+ color: white;
+ padding: 12px 20px;
+ border: none;
+ border-radius: 8px;
+ cursor: pointer;
+ font-size: 16px;
+ transition: background-color 0.3s ease;
+ width: 100%;
+}
+
+
+.calculation-inputs button:hover {
+ background: #219653;
+}
+
+
+.calculation-inputs #result {
+ margin-top: 20px;
+ padding: 15px;
+ border-radius: 8px;
+ font-weight: 500;
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ background: #e8f5e9;
+ border-left: 4px solid #27ae60;
+}
+
+
+/* Step-by-Step Solution Styles */
+.step-by-step-solution .solution-content {
+ padding: 10px;
+}
+
+
+.step-by-step-solution #formula-highlight {
+ font-size: 18px;
+ font-weight: 600;
+ color: #3498db;
+ margin-bottom: 10px;
+}
+
+
+.step-by-step-solution #step-list li {
+ margin-bottom: 8px;
+ display: flex;
+ align-items: center;
+ gap: 5px;
+}
+
+
+.step-by-step-solution .example {
+ margin-top: 15px;
+ padding: 10px;
+ background: #f0f0f0;
+ border-radius: 5px;
+ font-style: italic;
+}
+
+
+/* Formula Description Styles */
+.formula-description #formula-description-text {
+ line-height: 1.6;
+ color: #555;
+}
+
+
+/* Practice Problems Styles */
+.quizzes-practice-problems .problem {
+ margin-bottom: 15px;
+ padding: 10px;
+ border: 1px solid #ddd;
+ border-radius: 5px;
+}
+
+
+.quizzes-practice-problems .problem p {
+ margin-bottom: 8px;
+}
+
+
+.quizzes-practice-problems .show-answer-btn {
+ background: #3498db;
+ color: white;
+ padding: 8px 12px;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
+}
+
+
+.quizzes-practice-problems .show-answer-btn:hover {
+ background: #2980b9;
+}
+
+
+/* Formula History Styles */
+.formula-history #history-list {
+ margin-bottom: 15px;
+}
+
+
+.formula-history #history-list .no-history {
+ font-style: italic;
+ color: #777;
+}
+
+
+.formula-history .history-item {
+ padding: 10px;
+ border-bottom: 1px solid #eee;
+}
+
+
+.formula-history button {
+ background: #e74c3c;
+ color: white;
+ padding: 10px 15px;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
+}
+
+
+.formula-history button:hover {
+ background: #c0392b;
+}
+
+
+/* Formula Origin Styles */
+.formula-origin #formula-origin-text {
+ line-height: 1.6;
+ color: #555;
+}
+
+
+/* Footer Styles */
+.footer {
+ text-align: center;
+ padding: 20px;
+ background: #333;
+ color: white;
+ width: 100%;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+ .formula-dashboard {
+ grid-template-columns: 1fr;
+ }
+}
+
+/* Video Container */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+   }
+   
+   
+   .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+   }

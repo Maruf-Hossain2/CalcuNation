@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cell Biology Formulas</title>
+    <link rel="stylesheet" href="cell-biology.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <h1 class="title"><i class="fas fa-microscope"></i> Cell Biology Formulas</h1>
+            </div>
+            <div class="header-right">
+                <a href="/pages/biology.html" class="back-home-btn"><i class="fas fa-arrow-left"></i> Back to Biology</a>
+            </div>
+        </header>
+
+        <main class="formula-dashboard">
+            <!-- Calculation Card -->
+<section class="formula-card calculation-inputs">
+    <h2><i class="fas fa-calculator"></i> Calculation Inputs</h2>
+    <form id="cell-biology-form">
+        <div class="input-group">
+            <label for="cell-side"><i class="fas fa-cube"></i> Cell Side Length (µm):</label>
+            <input type="number" id="cell-side" name="cell-side" placeholder="Enter side length" />
+        </div>
+        <button type="button" onclick="calculateCellBiology()">
+            <i class="fas fa-bolt"></i> Calculate
+        </button>
+    </form>
+    <div id="result" class="result"></div>
+</section>
+
+<!-- Step-by-step Solution Card -->
+<section class="formula-card step-by-step-solution">
+    <h2><i class="fas fa-tasks"></i> Step-by-Step Solution</h2>
+    <div class="solution-content">
+        <p id="formula-highlight" class="formula-highlight">
+            SA:V Ratio = Surface Area / Volume
+        </p>
+        <ol id="step-list"></ol>
+        <div class="example">
+            <i class="fas fa-flask"></i>
+            <strong id="example-text"></strong>
+        </div>
+    </div>
+</section>
+<!-- Description Card -->
+<section class="formula-card formula-description">
+    <h2><i class="fas fa-info-circle"></i> Description of the Formula</h2>
+    <p><strong>Cell Volume (V):</strong> V = s³ (where s is the side length in µm)</p>
+    <p><strong>Cell Surface Area (A):</strong> A = 6s²</p>
+    <p><strong>Surface Area to Volume Ratio (SA:V):</strong> SA:V = A / V</p>
+    <p>This formula helps in understanding how cell size affects diffusion and metabolism. A higher SA:V ratio allows faster exchange of nutrients and waste.</p>
+</section>
+
+
+<!-- Formula History Card -->
+<section class="formula-card formula-history">
+    <h2><i class="fas fa-history"></i> Formula History</h2>
+    <div class="history-header">
+        <img src="Robert Hooke.jpg" alt="Robert Hooke Image" class="history-image">
+        <div>
+            <p><strong>1665:</strong> Robert Hooke discovered and named the "cell" while examining cork.</p>
+            <p><strong>19th Century:</strong> Scientists observed that smaller cells have a higher SA:V ratio, improving diffusion.</p>
+            <p><strong>20th Century:</strong> Studies confirmed that cell size is limited by diffusion and metabolic efficiency.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- Video Tutorial Card -->
+<section class="formula-card video-tutorial">
+    <h2><i class="fab fa-youtube"></i> Video Tutorial</h2>
+    <div class="video-container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_YOUTUBE_VIDEO_ID" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+</section>
+
+<!-- Practice Problems Card -->
+<section class="formula-card quizzes-practice-problems">
+    <h2><i class="fas fa-question-circle"></i> Practice Problems</h2>
+    <div class="problem">
+        <p><strong>Problem 1:</strong> A cube-shaped cell has sides of 5µm. Calculate its surface area to volume ratio.</p>
+        <button class="show-answer-btn" onclick="toggleAnswer(this)">
+            <i class="fas fa-lightbulb"></i> Show Answer
+        </button>
+        <p class="answer" style="display: none;">Answer: 1.2 µm⁻¹</p>
+    </div>
+    <div class="problem">
+        <p><strong>Problem 2:</strong> A cube-shaped cell has a side length of 10µm. Find its surface area.</p>
+        <button class="show-answer-btn" onclick="toggleAnswer(this)">
+            <i class="fas fa-lightbulb"></i> Show Answer
+        </button>
+        <p class="answer" style="display: none;">Answer: 600 µm²</p>
+    </div>
+</section>
+
+            <!-- Calculation History Card -->
+            <section class="formula-card calculation-history">
+                <h2><i class="fas fa-list"></i> Calculation History</h2>
+                <div id="history-list">
+                    <p class="no-history">Your calculation history will appear here.</p>
+                </div>
+                <button id="clear-history" onclick="clearHistory()"><i class="fas fa-trash"></i> Clear History</button>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>© 2025 CalcuNation | Cell Biology Formulas</p>
+        </footer>
+    </div>
+
+    <script>
+        let calculationHistory = [];
+
+        function calculateCellBiology() {
+            const cellSide = parseFloat(document.getElementById("cell-side").value);
+            let resultText = "";
+
+            if (isNaN(cellSide) || cellSide <= 0) {
+                resultText = '<i class="fas fa-exclamation-triangle"></i> Please enter a valid cell side length.';
+            } else {
+                // Calculate volume and surface area
+                const volume = Math.pow(cellSide, 3); // V = s³
+                const surfaceArea = 6 * Math.pow(cellSide, 2); // A = 6s²
+                const ratio = surfaceArea / volume; // SA:V Ratio
+                
+                resultText = `
+                    <p><strong>Cell Volume:</strong> ${volume.toFixed(2)} µm³</p>
+                    <p><strong>Cell Surface Area:</strong> ${surfaceArea.toFixed(2)} µm²</p>
+                    <p><strong>Surface Area to Volume Ratio:</strong> ${ratio.toFixed(2)} µm⁻¹</p>
+                `;
+
+                addToCalculationHistory(cellSide, surfaceArea, volume, ratio);
+                updateStepByStepSolution(cellSide, surfaceArea, volume, ratio);
+            }
+
+            document.getElementById("result").innerHTML = resultText;
+        }
+
+        function addToCalculationHistory(side, surfaceArea, volume, ratio) {
+            const historyItem = { side, surfaceArea, volume, ratio };
+            calculationHistory.push(historyItem);
+            updateHistoryList();
+        }
+
+        function updateHistoryList() {
+            const historyList = document.getElementById("history-list");
+            historyList.innerHTML = ""; // Clear existing history
+
+            if (calculationHistory.length === 0) {
+                historyList.innerHTML = '<p class="no-history">Your calculation history will appear here.</p>';
+                return;
+            }
+
+            calculationHistory.forEach(item => {
+                const historyItemElement = document.createElement("div");
+                historyItemElement.className = "history-item";
+                historyItemElement.innerHTML = `
+                    <p>
+                        <strong>Side:</strong> ${item.side} µm,
+                        <strong>Surface Area:</strong> ${item.surfaceArea.toFixed(2)} µm²,
+                        <strong>Volume:</strong> ${item.volume.toFixed(2)} µm³,
+                        <strong>Ratio:</strong> ${item.ratio.toFixed(2)} µm⁻¹
+                    </p>
+                `;
+                historyList.appendChild(historyItemElement);
+            });
+        }
+
+        function updateStepByStepSolution(side, surfaceArea, volume, ratio) {
+            const stepList = document.getElementById("step-list");
+            stepList.innerHTML = `
+                <li>Step 1: Take the given side length: <strong>${side} µm</strong>.</li>
+                <li>Step 2: Calculate the volume: <strong>V = ${side}³ = ${volume.toFixed(2)} µm³</strong>.</li>
+                <li>Step 3: Calculate the surface area: <strong>A = 6 × (${side}²) = ${surfaceArea.toFixed(2)} µm²</strong>.</li>
+                <li>Step 4: Compute the surface area to volume ratio: <strong>${surfaceArea.toFixed(2)} / ${volume.toFixed(2)} = ${ratio.toFixed(2)} µm⁻¹</strong>.</li>
+            `;
+            document.getElementById("formula-highlight").innerHTML = "Formula: <strong>V = s³, A = 6s², Ratio = A / V</strong>";
+        }
+        function toggleAnswer(button) {
+    const answer = button.nextElementSibling;
+    if (answer.style.display === "none") {
+        answer.style.display = "block";
+        button.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Answer';
+    } else {
+        answer.style.display = "none";
+        button.innerHTML = '<i class="fas fa-lightbulb"></i> Show Answer';
+    }
+}
+
+        function clearHistory() {
+            calculationHistory = [];
+            updateHistoryList();
+        }
+    </script>
+</body>
+</html>

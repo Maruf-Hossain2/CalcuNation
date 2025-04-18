@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>pH Calculator</title>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="ph-formula.css">
+ </head>
+ <body>
+ <div class="container">
+ <header class="header">
+ <div class="header-left">
+ <h1 class="title"><i class="fas fa-flask"></i> pH Calculator</h1>
+ </div>
+ <div class="header-right">
+ <a href="/pages/chemistry.html" class="back-home-btn"><i class="fas fa-arrow-left"></i> Back to Physics</a>
+ </div>
+ </header>
+
+
+ <main class="formula-dashboard">
+ <!-- Calculation Card -->
+ <div class="formula-card calculation-card">
+ <h2><i class="fas fa-calculator"></i> Calculate pH</h2>
+ <div class="input-section">
+ <div class="input-group">
+ <label for="hydrogen-ion"><i class="fas fa-atom"></i> Hydrogen Ion Concentration [H⁺] (mol/L):</label>
+ <input type="number" id="hydrogen-ion" placeholder="Enter concentration" required>
+ </div>
+ <button id="calculate-btn"><i class="fas fa-calculator"></i> Calculate</button>
+ </div>
+ <div id="result" class="result-section">
+ <p><i class="fas fa-vial"></i> <strong>pH Value:</strong> <span id="pH-value">?</span></p>
+ </div>
+ <div id="error-message" class="error-message"></div>
+ </div>
+
+
+ <!-- Step-by-Step Solution Card -->
+ <div class="formula-card step-by-step-card">
+ <h2><i class="fas fa-route"></i> Step-by-Step Solution</h2>
+ <div class="solution-content">
+ <p id="formula-highlight"><i class="fas fa-code"></i> pH = -log₁₀[H⁺]</p>
+ <ol id="step-list">
+ <li><i class="fas fa-check-circle"></i> Enter the hydrogen ion concentration [H⁺] in mol/L.</li>
+ <li><i class="fas fa-check-circle"></i> Apply the formula: pH = -log₁₀[H⁺].</li>
+ <li><i class="fas fa-check-circle"></i> Calculate the pH value using a base-10 logarithm.</li>
+ <li><i class="fas fa-check-circle"></i> The result is the pH of the solution.</li>
+ </ol>
+ <div class="example">
+ <i class="fas fa-flask"></i>
+ <strong>Example:</strong> If [H⁺] = 0.0001 mol/L, then pH = -log₁₀(0.0001) = 4
+ </div>
+ </div>
+ </div>
+
+
+ <!-- Formula Description Card -->
+ <div class="formula-card formula-description">
+ <h2><i class="fas fa-info-circle"></i> Description of the Formula</h2>
+ <div id="formula-description-text">
+ The pH formula, pH = -log₁₀[H⁺], quantifies the acidity or basicity of a solution. The pH scale ranges from 0 to 14, where values less than 7 indicate acidity, 7 indicates neutrality, and values greater than 7 indicate basicity. The [H⁺] represents the hydrogen ion concentration in moles per liter (mol/L).
+ </div>
+ </div>
+
+
+ <!-- Formula Origin Card -->
+ <div class="formula-card formula-origin">
+ <h2><i class="fas fa-book"></i> Formula Origin</h2>
+ <div id="formula-origin-text">
+ The pH scale was introduced by Søren Peder Lauritz Sørensen in 1909. It is a measure of the relative amount of free hydrogen and hydroxyl ions in water. Solutions with more free hydrogen ions are acidic, whereas those with more hydroxyl ions are basic.
+ </div>
+ </div>
+ 
+  <!-- Video Tutorial Card -->
+  <section class="formula-card video-tutorial">
+    <h2><i class="fab fa-youtube"></i> Video Tutorial</h2>
+    <div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/SPE_jKZS9So" title="YouTube video player"
+    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+    </div>
+    </section>
+
+ <!-- Practice Problems Card -->
+ <div class="formula-card practice-problems">
+ <h2><i class="fas fa-question-circle"></i> Practice Problems</h2>
+ <div id="practice-problems">
+ <div class="problem">
+ <p><i class="fas fa-exclamation-circle"></i> <strong>Problem 1:</strong> Calculate the pH of a solution with [H⁺] = 0.001 mol/L.</p>
+ <button class="show-answer-btn" onclick="toggleAnswer(this)"><i class="fas fa-lightbulb"></i> Show Answer</button>
+ <p class="answer" style="display: none;">pH = -log₁₀(0.001) = 3</p>
+ </div>
+ <div class="problem">
+ <p><i class="fas fa-exclamation-circle"></i> <strong>Problem 2:</strong> What is the pH if [H⁺] = 1.0 x 10⁻⁷ mol/L?</p>
+ <button class="show-answer-btn" onclick="toggleAnswer(this)"><i class="fas fa-lightbulb"></i> Show Answer</button>
+ <p class="answer" style="display: none;">pH = -log₁₀(1.0 x 10⁻⁷) = 7</p>
+ </div>
+ </div>
+ </div>
+
+ <!-- Calculation History Card -->
+ <div class="formula-card formula-history">
+    <h2><i class="fas fa-history"></i> Calculation History</h2>
+    <div id="history-list">
+    <p class="no-history">Your calculation history will appear here.</p>
+    </div>
+    <button id="clear-history"><i class="fas fa-trash"></i> Clear History</button>
+    </div>
+ </main>
+
+
+ <footer class="footer">
+ <p>© 2025 CalcuNation | Chemistry Formulas</p>
+ </footer>
+ </div>
+ <script>
+ document.addEventListener('DOMContentLoaded', function() {
+ const calculateButton = document.getElementById("calculate-btn");
+ const hydrogenIonInput = document.getElementById("hydrogen-ion");
+ const resultSection = document.getElementById("result");
+ const errorMessage = document.getElementById("error-message");
+ const pHValueDisplay = document.getElementById("pH-value");
+ const historyList = document.getElementById("history-list");
+ const clearHistoryButton = document.getElementById("clear-history");
+
+
+ let calculationHistory = [];
+
+
+ // Function to update the calculation history list in the UI
+ function updateHistoryList() {
+ historyList.innerHTML = ''; // Clear current list
+ if (calculationHistory.length === 0) {
+ const noHistoryMessage = document.createElement('p');
+ noHistoryMessage.classList.add('no-history');
+ noHistoryMessage.textContent = 'No calculations yet.';
+ historyList.appendChild(noHistoryMessage);
+ } else {
+ calculationHistory.forEach((item, index) => {
+ const listItem = document.createElement('div');
+ listItem.classList.add('history-item');
+ listItem.innerHTML = `
+ <p>Calculation ${index + 1}: pH = ${item.pHValue.toFixed(2)}</p>
+ <p>[H⁺] = ${item.concentration} mol/L</p>
+ `;
+ historyList.appendChild(listItem);
+ });
+ }
+ }
+
+
+ // Initial update of the history list
+ updateHistoryList();
+
+
+ // Function to store a calculation in the history
+ function storeCalculation(concentration, pHValue) {
+ calculationHistory.push({
+ concentration: concentration,
+ pHValue: pHValue,
+ });
+ updateHistoryList(); // Update the UI
+ }
+
+
+ // Set up the calculate button click event
+ calculateButton.addEventListener("click", function() {
+ const concentration = parseFloat(hydrogenIonInput.value);
+ errorMessage.innerText = '';
+ resultSection.style.display = 'none';
+
+
+ if(isNaN(concentration) || concentration <= 0) {
+ errorMessage.innerText = "Please enter a valid concentration greater than 0.";
+ } else {
+ const pHValue = -Math.log10(concentration);
+ pHValueDisplay.innerText = pHValue.toFixed(2);
+ resultSection.style.display = 'block';
+ storeCalculation(concentration, pHValue);
+ }
+ });
+
+
+ // Clear history functionality
+ clearHistoryButton.addEventListener("click", function() {
+ calculationHistory = []; // Clear the calculation history
+ updateHistoryList(); // Update the UI to reflect the cleared history
+ });
+ });
+
+
+ function toggleAnswer(button) {
+ const answer = button.nextElementSibling;
+ if (answer.style.display === "none") {
+ answer.style.display = "block";
+ button.textContent = "Hide Answer";
+ } else {
+ answer.style.display = "none";
+ button.textContent = "Show Answer";
+ }
+ }
+ </script>
+ </body>
+</html>

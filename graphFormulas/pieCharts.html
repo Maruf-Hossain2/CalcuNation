@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Pie Chart</title>
+    <link rel="stylesheet" href="Graph.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <h1><i class="fas fa-chart-pie"></i> Pie Chart</h1>
+            </div>
+            <div class="header-right">
+                <a href="/pages/graph.html" class="back-home-btn"><i class="fas fa-home"></i> Go Back Home</a>
+            </div>
+        </header>
+
+        <section class="intro">
+            <p>Visualize your data with this interactive and futuristic pie chart explorer.</p>
+        </section>
+
+        <section class="graph-input">
+            <form id="data-form">
+                <div class="input-group">
+                    <label for="data-labels"><i class="fas fa-tags"></i> Data Labels (comma or space-separated):</label>
+                    <input type="text" id="data-labels" name="data-labels"
+                        placeholder="e.g., Segment A, Segment B, Segment C">
+                    <p class="input-hint">Enter labels for each pie segment, separated by commas or spaces.</p>
+                </div>
+
+                <div class="input-group">
+                    <label for="data-values"><i class="fas fa-list-ol"></i> Data Values (comma or space-separated):</label>
+                    <input type="text" id="data-values" name="data-values" placeholder="e.g., 30, 40, 20, 10">
+                    <p class="input-hint">Enter numerical values for each pie segment, separated by commas or spaces.</p>
+                </div>
+
+                <div class="input-group">
+                    <label for="chart-type"><i class="fas fa-chart-circle"></i> Chart Type:</label>
+                    <select id="chart-type" name="chart-type">
+                        <option value="pie">Pie Chart</option>
+                        <option value="doughnut">Doughnut Chart</option>
+                    </select>
+                </div>
+
+                <button type="submit"><i class="fas fa-chart-pie"></i> Update Chart</button>
+            </form>
+        </section>
+
+        <section class="graph-preview">
+            <canvas id="pieChart"></canvas>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="pieCharts.js"></script>
+</body>
+
+</html>

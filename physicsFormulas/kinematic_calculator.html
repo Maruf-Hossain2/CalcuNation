@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Kinematic Equations Solver</title>
+ <link
+ rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+ />
+ <link rel="preconnect" href="https://fonts.googleapis.com" />
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+ <link
+ href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+ rel="stylesheet"
+ />
+ <link rel="stylesheet" href="f_ma.css" />
+ </head>
+ <body>
+ <div class="container">
+ <header class="header">
+ <div class="header-left">
+ <h1 class="title"><i class="fas fa-rocket"></i> Kinematic Equations Solver</h1>
+ </div>
+ <div class="header-right">
+ <a href="/pages/Physics.html" class="back-home-btn"
+ ><i class="fas fa-arrow-left"></i> Back to Physics</a
+ >
+ </div>
+ </header>
+
+
+ <main class="formula-dashboard">
+ <div class="formula-card calculation-inputs">
+ <h2><i class="fas fa-calculator"></i> Calculation Inputs</h2>
+ <div class="equation-selector">
+ <legend>Select Equation</legend>
+ <label>
+ <input type="radio" name="equationType" value="vf_vi_at" checked onchange="updateForm()" />
+ v = u + at
+ </label>
+ <label>
+ <input type="radio" name="equationType" value="s_ut_half_at2" onchange="updateForm()" />
+ s = ut + (1/2)at²
+ </label>
+ </div>
+
+
+ <div class="calc-mode-selector">
+ <legend>Select Calculation Type</legend>
+ <div id="calc-mode-options">
+ <!-- Calculation mode options generated dynamically -->
+ </div>
+ </div>
+
+
+ <div class="input-fields" id="input-fields">
+ <div class="input-group" id="initialVelocity-group">
+ <label for="initialVelocity"
+ ><i class="fas fa-tachometer-alt"></i> Initial Velocity (u):</label
+ >
+ <input type="number" id="initialVelocity" name="initialVelocity" placeholder="Enter initial velocity (m/s)" />
+ </div>
+ <div class="input-group" id="acceleration-group">
+ <label for="acceleration"
+ ><i class="fas fa-rocket"></i> Acceleration (a):</label
+ >
+ <input type="number" id="acceleration" name="acceleration" placeholder="Enter acceleration (m/s²)" />
+ </div>
+ <div class="input-group" id="time-group">
+ <label for="time"
+ ><i class="fas fa-clock"></i> Time (t):</label
+ >
+ <input type="number" id="time" name="time" placeholder="Enter time (s)" />
+ </div>
+ <div class="input-group" id="finalVelocity-group" style="display: none;">
+ <label for="finalVelocity"
+ ><i class="fas fa-tachometer-alt"></i> Final Velocity (v):</label
+ >
+ <input
+ type="number"
+ id="finalVelocity"
+ name="finalVelocity"
+ placeholder="Enter final velocity (m/s)"
+ />
+ </div>
+ <div class="input-group" id="displacement-group" style="display: none;">
+ <label for="displacement"
+ ><i class="fas fa-road"></i> Displacement (s):</label
+ >
+ <input
+ type="number"
+ id="displacement"
+ name="displacement"
+ placeholder="Enter displacement (m)"
+ />
+ </div>
+ </div>
+
+
+ <button type="button" onclick="calculate()">
+ <i class="fas fa-calculator"></i> Calculate
+ </button>
+ <div id="result" class="result"></div>
+ </div>
+
+
+ <div class="formula-card step-by-step-solution">
+ <h2><i class="fas fa-route"></i> Step-by-Step Solution</h2>
+ <div class="solution-content">
+ <p id="formula-highlight"></p>
+ <ol id="step-list"></ol>
+ <div class="example">
+ <i class="fas fa-flask"></i>
+ <strong id="example-text"></strong>
+ </div>
+ </div>
+ </div>
+
+
+ <div class="formula-card formula-description">
+ <h2><i class="fas fa-info-circle"></i> Description of the Formula</h2>
+ <div id="formula-description-text"></div>
+ </div>
+
+
+ <div class="formula-card formula-origin">
+ <h2><i class="fas fa-book"></i> Formula Origin</h2>
+ <div id="formula-origin-text"></div>
+ </div>
+
+  <!-- Video Tutorial Card -->
+  <section class="formula-card video-tutorial">
+    <h2><i class="fab fa-youtube"></i> Video Tutorial</h2>
+    <div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/SPE_jKZS9So" title="YouTube video player"
+    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+    </div>
+    </section>
+
+
+ <div class="formula-card quizzes-practice-problems">
+ <h2><i class="fas fa-question-circle"></i> Practice Problems</h2>
+ <div id="practice-problems">
+ <!-- Practice problems dynamically generated here -->
+ </div>
+ </div>
+
+ 
+ <div class="formula-card formula-history">
+    <h2><i class="fas fa-history"></i> Calculation History</h2>
+    <div id="history-list">
+    <p class="no-history">Your calculation history will appear here.</p>
+    </div>
+    <button id="clear-history" onclick="clearHistory()">
+    <i class="fas fa-trash"></i> Clear History
+    </button>
+    </div>
+
+ </main>
+
+
+ <footer class="footer">
+ <p>© 2025 CalcuNation | Physics Formulas</p>
+ </footer>
+ </div>
+
+
+ <script>
+ let calculationHistory = [];
+
+
+ function updateForm() {
+ const equationType = document.querySelector(
+ 'input[name="equationType"]:checked'
+ ).value;
+ const calcModeOptionsDiv = document.getElementById("calc-mode-options");
+ calcModeOptionsDiv.innerHTML = "";
+
+
+ let calcModes;
+ if (equationType === "vf_vi_at") {
+ calcModes = ["finalVelocity", "initialVelocity", "acceleration", "time"];
+ } else if (equationType === "s_ut_half_at2") {
+ calcModes = ["displacement", "initialVelocity", "acceleration", "time"];
+ }
+
+
+ calcModes.forEach((mode) => {
+ const label = document.createElement("label");
+ const input = document.createElement("input");
+ input.type = "radio";
+ input.name = "calcMode";
+ input.value = mode;
+ input.onchange = () => {
+ updateInputVisibility();
+ updateSolutionAndDescription();
+ };
+ label.appendChild(input);
+ label.appendChild(document.createTextNode(getCalcModeLabel(mode)));
+ calcModeOptionsDiv.appendChild(label);
+ });
+
+
+ const defaultRadio = calcModeOptionsDiv.querySelector('input[type="radio"]');
+ if (defaultRadio) {
+ defaultRadio.checked = true;
+ }
+
+
+ updateInputVisibility();
+ updateSolutionAndDescription();
+ updateFormulaOrigin();
+ updatePracticeProblems();
+ document.getElementById("result").innerHTML = "";
+ }
+
+
+ function getCalcModeLabel(mode) {
+ switch (mode) {
+ case "finalVelocity":
+ return " Calculate Final Velocity (v)";
+ case "initialVelocity":
+ return " Calculate Initial Velocity (u)";
+ case "acceleration":
+ return " Calculate Acceleration (a)";
+ case "time":
+ return " Calculate Time (t)";
+ case "displacement":
+ return " Calculate Displacement (s)";
+ default:
+ return "";
+ }
+ }
+
+
+ function updateInputVisibility() {
+ const equationType = document.querySelector(
+ 'input[name="equationType"]:checked'
+ ).value;
+ const calcMode = document.querySelector('input[name="calcMode"]:checked')
+ .value;
+
+
+ const initialVelocityGroup = document.getElementById("initialVelocity-group");
+ const accelerationGroup = document.getElementById("acceleration-group");
+ const timeGroup = document.getElementById("time-group");
+ const finalVelocityGroup = document.getElementById("finalVelocity-group");
+ const displacementGroup = document.getElementById("displacement-group");
+
+
+ initialVelocityGroup.style.display = calcMode !== "initialVelocity" ? "block" : "none";
+ accelerationGroup.style.display = calcMode !== "acceleration" ? "block" : "none";
+ timeGroup.style.display = calcMode !== "time" ? "block" : "none";
+
+
+ if (equationType === "vf_vi_at") {
+ finalVelocityGroup.style.display = calcMode !== "finalVelocity" ? "block" : "none";
+ displacementGroup.style.display = "none";
+ } else if (equationType === "s_ut_half_at2") {
+ displacementGroup.style.display = calcMode !== "displacement" ? "block" : "none";
+ finalVelocityGroup.style.display = "none";
+ }
+ }
+
+
+ function updateSolutionAndDescription() {
+ const equationType = document.querySelector(
+ 'input[name="equationType"]:checked'
+ ).value;
+ const calcMode = document.querySelector('input[name="calcMode"]:checked').value;
+ const formulaHighlight = document.getElementById("formula-highlight");
+ const stepList = document.getElementById("step-list");
+ const exampleText = document.getElementById("example-text");
+ const descriptionText = document.getElementById("formula-description-text");
+ stepList.innerHTML = "";
+
+
+ let formulaText = "";
+ let description = "";
+ let example = "";
+ let steps = [];
+
+
+ if (equationType === "vf_vi_at") {
+ formulaText = "v = u + at";
+ switch (calcMode) {
+ case "finalVelocity":
+ description =
+ "Calculates the final velocity (v) given the initial velocity (u), acceleration (a), and time (t).";
+ example =
+ "Example: If u = 5 m/s, a = 2 m/s², t = 3 s, then v = 5 + 2×3 = 11 m/s";
+ steps = [
+ "Identify initial velocity (u), acceleration (a), and time (t).",
+ "Substitute values into: v = u + at.",
+ "Compute final velocity (v).",
+ ];
+ break;
+ case "initialVelocity":
+ description =
+ "Calculates the initial velocity (u) given the final velocity (v), acceleration (a), and time (t).";
+ example =
+ "Example: If v = 11 m/s, a = 2 m/s², t = 3 s, then u = 11 - 2×3 = 5 m/s";
+ steps = [
+ "Identify final velocity (v), acceleration (a), and time (t).",
+ "Rearrange the equation: u = v - at.",
+ "Substitute the values to solve for u.",
+ ];
+ break;
+ case "acceleration":
+ description =
+ "Calculates the acceleration (a) given the initial velocity (u), final velocity (v), and time (t).";
+ example =
+ "Example: If u = 5 m/s, v = 11 m/s, t = 3 s, then a = (11 - 5) / 3 = 2 m/s²";
+ steps = [
+ "Identify u, v, and t.",
+ "Rearrange the equation: a = (v - u) / t.",
+ "Substitute the values to compute a.",
+ ];
+ break;
+ case "time":
+ description =
+ "Calculates the time (t) given the initial velocity (u), final velocity (v), and acceleration (a) using the linear equation.";
+ example =
+ "Example: If u = 5 m/s, v = 11 m/s, a = 2 m/s², then t = (11 - 5) / 2 = 3 s";
+ steps = [
+ "Identify v, u, and a.",
+ "Rearrange the equation: t = (v - u) / a.",
+ "Compute t.",
+ ];
+ break;
+ }
+ } else if (equationType === "s_ut_half_at2") {
+ formulaText = "s = ut + (1/2)at²";
+ switch (calcMode) {
+ case "displacement":
+ description =
+ "Calculates the displacement (s) given initial velocity (u), time (t), and acceleration (a).";
+ example =
+ "Example: If u = 5 m/s, t = 3 s, a = 2 m/s², then s = 5×3 + 0.5×2×3² = 24 m";
+ steps = [
+ "Identify u, t, and a.",
+ "Substitute into: s = ut + (1/2)at².",
+ "Compute s.",
+ ];
+ break;
+ case "initialVelocity":
+ description =
+ "Calculates the initial velocity (u) given displacement (s), time (t), and acceleration (a).";
+ example =
+ "Example: If s = 24 m, t = 3 s, a = 2 m/s², then u = (24 - 0.5×2×3²) / 3 = 5 m/s";
+ steps = [
+ "Identify s, t, and a.",
+ "Rearrange the equation: u = (s - (1/2)at²) / t.",
+ "Substitute values to compute u.",
+ ];
+ break;
+ case "acceleration":
+ description =
+ "Calculates the acceleration (a) given displacement (s), initial velocity (u), and time (t).";
+ example =
+ "Example: If s = 24 m, u = 5 m/s, t = 3 s, then a = 2×(s - u×t) / t² = 2×(24 - 15) / 9 = 2 m/s²";
+ steps = [
+ "Identify s, u, and t.",
+ "Rearrange the equation: a = 2(s - ut) / t².",
+ "Substitute values to compute a.",
+ ];
+ break;
+ case "time":
+ description =
+ "Calculates the time (t) by solving the quadratic equation from s = ut + (1/2)at². If acceleration is non-zero, the equation is rearranged into quadratic form and solved using the quadratic formula; if acceleration is zero, a linear solution is applied.";
+ example =
+ "Example: For s = 24 m, u = 5 m/s, and a = 2 m/s²: Rearrange to 2t² + 10t - 48 = 0. Discriminant = 484; √484 = 22; then t = (-10 + 22) / 4 = 3 s";
+ steps = [
+ "Start with: s = ut + (1/2)at².",
+ "Rearrange to: (1/2)at² + ut - s = 0.",
+ "Multiply by 2: a·t² + 2u·t - 2s = 0.",
+ "Identify A = a, B = 2u, C = -2s.",
+ "Compute the discriminant: Δ = B² - 4AC.",
+ "Solve using: t = ( -B ± √Δ ) / (2A).",
+ "Select the positive solution (or if a = 0, use t = s / u).",
+ ];
+ break;
+ }
+ }
+
+
+ formulaHighlight.textContent = formulaText;
+ descriptionText.textContent = description;
+ exampleText.textContent = example;
+ steps.forEach((step) => {
+ const li = document.createElement("li");
+ li.innerHTML = `<i class="fas fa-check-circle"></i> ${step}`;
+ stepList.appendChild(li);
+ });
+ }
+
+
+ function updateFormulaOrigin() {
+ const equationType = document.querySelector(
+ 'input[name="equationType"]:checked'
+ ).value;
+ const formulaOriginText = document.getElementById("formula-origin-text");
+ let originText = "";
+ if (equationType === "vf_vi_at") {
+ originText =
+ "This equation is derived from the definition of acceleration (the rate of change of velocity) under constant acceleration.";
+ } else if (equationType === "s_ut_half_at2") {
+ originText =
+ "This equation is derived from the principles of constant acceleration and is used to calculate displacement based on initial velocity, time, and acceleration.";
+ }
+ formulaOriginText.textContent = originText;
+ }
+
+
+ function updatePracticeProblems() {
+ const equationType = document.querySelector(
+ 'input[name="equationType"]:checked'
+ ).value;
+ const practiceProblemsDiv = document.getElementById("practice-problems");
+ practiceProblemsDiv.innerHTML = "";
+ let problems = [];
+ if (equationType === "vf_vi_at") {
+ problems = [
+ {
+ question:
+ "A car accelerates from 10 m/s to 25 m/s in 5 seconds. What is its acceleration?",
+ solution: "a = (25 - 10) / 5 = 3 m/s²",
+ },
+ {
+ question:
+ "A ball is thrown with an initial velocity of 15 m/s and accelerates at -2 m/s². What is its final velocity after 4 seconds?",
+ solution: "v = 15 + (-2)*4 = 7 m/s",
+ },
+ ];
+ } else if (equationType === "s_ut_half_at2") {
+ problems = [
+ {
+ question:
+ "A cyclist starts from rest and accelerates at 1.5 m/s² for 6 seconds. How far does the cyclist travel?",
+ solution: "s = 0*6 + 0.5*1.5*6² = 27 m",
+ },
+ {
+ question:
+ "A train travels with an initial velocity of 20 m/s and accelerates at 0.5 m/s² for 10 seconds. What is the displacement?",
+ solution: "s = 20*10 + 0.5*0.5*10² = 225 m",
+ },
+ ];
+ }
+ problems.forEach((problem, index) => {
+ const div = document.createElement("div");
+ div.className = "problem";
+ div.innerHTML = `
+ <p><i class="fas fa-exclamation-circle"></i> <strong>Problem ${index + 1}:</strong> ${problem.question}</p>
+ <button class="show-answer-btn" onclick="toggleAnswer(this)">
+ <i class="fas fa-lightbulb"></i> Show Answer
+ </button>
+ <p class="answer" style="display: none;">${problem.solution}</p>
+ `;
+ practiceProblemsDiv.appendChild(div);
+ });
+ }
+
+
+ function calculate() {
+ const equationType = document.querySelector(
+ 'input[name="equationType"]:checked'
+ ).value;
+ const calcMode = document.querySelector('input[name="calcMode"]:checked')
+ .value;
+ let resultText = "";
+ let result;
+ const initialVelocity = parseFloat(
+ document.getElementById("initialVelocity").value
+ );
+ const acceleration = parseFloat(
+ document.getElementById("acceleration").value
+ );
+ const time = parseFloat(document.getElementById("time").value);
+ const finalVelocity = parseFloat(
+ document.getElementById("finalVelocity").value
+ );
+ const displacement = parseFloat(
+ document.getElementById("displacement").value
+ );
+
+
+ if (equationType === "vf_vi_at") {
+ switch (calcMode) {
+ case "finalVelocity":
+ if (
+ isNaN(initialVelocity) ||
+ isNaN(acceleration) ||
+ isNaN(time)
+ ) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Please provide valid inputs.';
+ } else {
+ result = initialVelocity + acceleration * time;
+ resultText = `<i class="fas fa-check-circle"></i> Final Velocity (v) = ${result.toFixed(
+ 2
+ )} m/s`;
+ }
+ break;
+ case "initialVelocity":
+ if (
+ isNaN(finalVelocity) ||
+ isNaN(acceleration) ||
+ isNaN(time)
+ ) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Please provide valid inputs.';
+ } else {
+ result = finalVelocity - acceleration * time;
+ resultText = `<i class="fas fa-check-circle"></i> Initial Velocity (u) = ${result.toFixed(
+ 2
+ )} m/s`;
+ }
+ break;
+ case "acceleration":
+ if (
+ isNaN(finalVelocity) ||
+ isNaN(initialVelocity) ||
+ isNaN(time)
+ ) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Please provide valid inputs.';
+ } else if (time === 0) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Time must be non-zero for acceleration calculation.';
+ } else {
+ result = (finalVelocity - initialVelocity) / time;
+ resultText = `<i class="fas fa-check-circle"></i> Acceleration (a) = ${result.toFixed(
+ 2
+ )} m/s²`;
+ }
+ break;
+ case "time":
+ if (
+ isNaN(finalVelocity) ||
+ isNaN(initialVelocity) ||
+ isNaN(acceleration)
+ ) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Please provide valid inputs.';
+ } else if (acceleration === 0) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Acceleration must be non-zero for time calculation.';
+ } else {
+ result = (finalVelocity - initialVelocity) / acceleration;
+ resultText = `<i class="fas fa-check-circle"></i> Time (t) = ${result.toFixed(
+ 2
+ )} s`;
+ }
+ break;
+ }
+ } else if (equationType === "s_ut_half_at2") {
+ switch (calcMode) {
+ case "displacement":
+ if (
+ isNaN(initialVelocity) ||
+ isNaN(time) ||
+ isNaN(acceleration)
+ ) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Please provide valid inputs.';
+ } else {
+ result =
+ initialVelocity * time +
+ 0.5 * acceleration * Math.pow(time, 2);
+ resultText = `<i class="fas fa-check-circle"></i> Displacement (s) = ${result.toFixed(
+ 2
+ )} m`;
+ }
+ break;
+ case "initialVelocity":
+ if (
+ isNaN(displacement) ||
+ isNaN(time) ||
+ isNaN(acceleration)
+ ) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Please provide valid inputs.';
+ } else if (time === 0) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Time must be non-zero for initial velocity calculation.';
+ } else {
+ result =
+ (displacement - 0.5 * acceleration * Math.pow(time, 2)) /
+ time;
+ resultText = `<i class="fas fa-check-circle"></i> Initial Velocity (u) = ${result.toFixed(
+ 2
+ )} m/s`;
+ }
+ break;
+ case "acceleration":
+ if (
+ isNaN(displacement) ||
+ isNaN(initialVelocity) ||
+ isNaN(time)
+ ) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Please provide valid inputs.';
+ } else if (time === 0) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Time must be non-zero for acceleration calculation.';
+ } else {
+ result =
+ (2 * (displacement - initialVelocity * time)) /
+ Math.pow(time, 2);
+ resultText = `<i class="fas fa-check-circle"></i> Acceleration (a) = ${result.toFixed(
+ 2
+ )} m/s²`;
+ }
+ break;
+ case "time":
+ if (
+ isNaN(displacement) ||
+ isNaN(initialVelocity) ||
+ isNaN(acceleration)
+ ) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Please provide valid inputs.';
+ } else {
+ if (acceleration === 0) {
+ if (initialVelocity === 0) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Both acceleration and initial velocity cannot be zero.';
+ } else {
+ result = displacement / initialVelocity;
+ resultText = `<i class="fas fa-check-circle"></i> Time (t) = ${result.toFixed(
+ 2
+ )} s (linear case)`;
+ }
+ } else {
+ const A = acceleration;
+ const B = 2 * initialVelocity;
+ const C = -2 * displacement;
+ const discriminant = B * B - 4 * A * C;
+ if (discriminant < 0) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> Discriminant is negative. No real time solution exists.';
+ } else {
+ const sqrtD = Math.sqrt(discriminant);
+ const t1 = (-B + sqrtD) / (2 * A);
+ const t2 = (-B - sqrtD) / (2 * A);
+ let positiveTimes = [t1, t2].filter((t) => t >= 0);
+ if (positiveTimes.length === 0) {
+ resultText =
+ '<i class="fas fa-exclamation-triangle"></i> No positive time solution exists.';
+ } else {
+ result = Math.min(...positiveTimes);
+ resultText = `<i class="fas fa-check-circle"></i> Time (t) = ${result.toFixed(
+ 2
+ )} s (via quadratic solution)`;
+ }
+ }
+ }
+ }
+ break;
+ }
+ }
+
+
+ document.getElementById("result").innerHTML = resultText;
+ addToCalculationHistory(
+ equationType,
+ calcMode,
+ { initialVelocity, acceleration, time, finalVelocity, displacement },
+ result
+ );
+ }
+
+
+ function toggleAnswer(button) {
+ const answer = button.nextElementSibling;
+ if (answer.style.display === "none") {
+ answer.style.display = "block";
+ button.innerHTML =
+ '<i class="fas fa-eye-slash"></i> Hide Answer';
+ } else {
+ answer.style.display = "none";
+ button.innerHTML =
+ '<i class="fas fa-lightbulb"></i> Show Answer';
+ }
+ }
+
+
+ function addToCalculationHistory(equationType, calcMode, inputs, result) {
+ const historyItem = {
+ equationType,
+ calcMode,
+ inputs,
+ result,
+ timestamp: new Date(),
+ };
+ calculationHistory.push(historyItem);
+ updateHistoryList();
+ }
+
+
+ function updateHistoryList() {
+ const historyList = document.getElementById("history-list");
+ historyList.innerHTML = "";
+ if (calculationHistory.length === 0) {
+ historyList.innerHTML =
+ '<p class="no-history">Your calculation history will appear here.</p>';
+ return;
+ }
+ calculationHistory.forEach((item, index) => {
+ const div = document.createElement("div");
+ div.className = "history-item";
+ div.innerHTML = `
+ <p><i class="fas fa-history"></i> Calculation ${index + 1}:</p>
+ <p>Equation: ${
+ item.equationType === "vf_vi_at"
+ ? "v = u + at"
+ : "s = ut + (1/2)at²"
+ }</p>
+ <p>Calculation Mode: ${getCalcModeLabel(item.calcMode)}</p>
+ <p>Result: ${item.result}</p>
+ <p>Timestamp: ${item.timestamp.toLocaleString()}</p>
+ `;
+ historyList.appendChild(div);
+ });
+ }
+
+
+ function clearHistory() {
+ calculationHistory = [];
+ updateHistoryList();
+ }
+
+
+ document.addEventListener("DOMContentLoaded", () => {
+ updateForm();
+ updateHistoryList();
+ });
+ </script>
+ </body>
+</html>

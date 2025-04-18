@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+ <html lang="en">
+
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Futuristic Length Converter</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="length.css">
+ </head>
+
+ <body>
+  <div class="container">
+  <h1>Length Conversion</h1>
+
+  <div class="input-group">
+  <label for="fromUnitInput">From Unit:</label>
+  <input type="text" id="fromUnitInput" list="fromUnitList" placeholder="Enter unit">
+  <datalist id="fromUnitList"></datalist>
+  </div>
+
+  <div class="input-group">
+  <label for="toUnitInput">To Unit:</label>
+  <input type="text" id="toUnitInput" list="toUnitList" placeholder="Enter unit">
+  <datalist id="toUnitList"></datalist>
+  </div>
+
+  <button id="swapButton" class="swap-button"><i class="fas fa-exchange-alt"></i> Swap Units</button>
+
+  <div class="input-group">
+  <label for="value">Value:</label>
+  <input type="number" id="value" placeholder="Enter value">
+  </div>
+
+  <div id="result">Result:</div>
+
+  <div id="unitDescription" class="unit-info">
+  <h3><i class="fas fa-info-circle"></i> Unit Description</h3>
+  <p id="descriptionText">Select a unit to view its description.</p>
+  </div>
+
+  <div id="unitHistory" class="unit-info">
+  <h3><i class="fas fa-history"></i> Unit History</h3>
+  <p id="historyText">Select a unit to view its history.</p>
+  </div>
+
+  <div id="calculationHistory">
+  <h3><i class="fas fa-calculator"></i> Calculation History</h3>
+  <ul id="historyList"></ul>
+  <button id="clearHistory">Clear History</button>
+  </div>
+  </div>
+
+  <script src="length.js"></script>
+ </body>
+
+ </html>

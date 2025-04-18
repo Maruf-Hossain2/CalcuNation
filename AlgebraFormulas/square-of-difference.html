@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(a - b)² - Square of Difference Formula</title>
+    <link rel="stylesheet" href="algebra.css" />
+    <link rel="stylesheet" href="square-of-difference.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <h1 class="title"><i class="fas fa-square-root-alt"></i> (a - b)² Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <a href="/pages/algebra.html" class="back-home-btn"><i class="fas fa-arrow-left"></i> Back to Algebra</a>
+            </div>
+        </header>
+
+        <main class="formula-dashboard">
+            <!-- Calculation Card -->
+            <section class="formula-card calculation-inputs">
+                <h2><i class="fas fa-calculator"></i> Calculation Inputs</h2>
+                <form id="square-diff-form">
+                    <div class="input-group">
+                        <label for="a"><i class="fas fa-circle"></i> Value of a:</label>
+                        <input type="number" id="a" name="a" placeholder="Enter value of a" />
+                    </div>
+                    <div class="input-group">
+                        <label for="b"><i class="fas fa-circle"></i> Value of b:</label>
+                        <input type="number" id="b" name="b" placeholder="Enter value of b" />
+                    </div>
+                    <button type="button" onclick="calculateSquareDifference()">
+                        <i class="fas fa-bolt"></i> Calculate
+                    </button>
+                </form>
+                <div id="result" class="result"></div>
+            </section>
+
+            <!-- Step-by-step Solution Card -->
+            <section class="formula-card step-by-step-solution">
+                <h2><i class="fas fa-tasks"></i> Step-by-Step Solution</h2>
+                <div class="solution-content">
+                    <p id="formula-highlight" class="formula-highlight">(a - b)² = a² - 2ab + b²</p>
+                    <ol id="step-list"></ol>
+                    <div class="example">
+                        <i class="fas fa-flask"></i>
+                        <strong id="example-text"></strong>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Description Card -->
+            <section class="formula-card formula-description">
+                <h2><i class="fas fa-info-circle"></i> Description of the Formula</h2>
+                <p>The square of the difference formula states that when you square the difference of two numbers, the result is the sum of their squares minus twice their product.</p>
+            </section>
+
+            <!-- Formula History Card -->
+            <section class="formula-card formula-history">
+                <h2><i class="fas fa-history"></i> Formula History</h2>
+                <p>Historically, the Babylonians used the difference of two squares to calculate multiplications.</p>
+            </section>
+
+            <!-- Video Tutorial Card -->
+            <section class="formula-card video-tutorial">
+                <h2><i class="fab fa-youtube"></i> Video Tutorial</h2>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/5YOwdey79jM" title="YouTube video player"
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </section>
+<!-- Practice Problems Card -->
+<section class="formula-card quizzes-practice-problems">
+    <h2><i class="fas fa-question-circle"></i> Practice Problems</h2>
+    <div class="problem">
+        <p>
+            <i class="fas fa-exclamation-circle"></i> <strong>Problem 1:</strong> Find the expansion of (7 - 4)².
+        </p>
+        <button class="show-answer-btn" onclick="toggleAnswer(this)">
+            <i class="fas fa-lightbulb"></i> Show Answer
+        </button>
+        <p class="answer" style="display: none;">(7 - 4)² = 7² - 2(7×4) + 4² = 49 - 56 + 16 = 9</p>
+    </div>
+    <div class="problem">
+        <p>
+            <i class="fas fa-exclamation-circle"></i> <strong>Problem 2:</strong> If a = 10 and b = 6, find (a - b)².
+        </p>
+        <button class="show-answer-btn" onclick="toggleAnswer(this)">
+            <i class="fas fa-lightbulb"></i> Show Answer
+        </button>
+        <p class="answer" style="display: none;">(10 - 6)² = 10² - 2(10×6) + 6² = 100 - 120 + 36 = 16</p>
+    </div>
+</section>
+            <!-- Calculation History Card -->
+            <section class="formula-card calculation-history">
+                <h2><i class="fas fa-list"></i> Calculation History</h2>
+                <div id="history-list">
+                    <p class="no-history">Your calculation history will appear here.</p>
+                </div>
+                <button id="clear-history" onclick="clearHistory()"><i class="fas fa-trash"></i> Clear History</button>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>© 2025 CalcuNation | Algebra Formulas</p>
+        </footer>
+    </div>
+
+    <script>
+        function calculateSquareDifference() {
+            const a = parseFloat(document.getElementById("a").value);
+            const b = parseFloat(document.getElementById("b").value);
+
+            if (isNaN(a) || isNaN(b)) {
+                document.getElementById("result").innerHTML = 
+                    '<i class="fas fa-exclamation-triangle"></i> Please enter valid numbers.';
+                return;
+            }
+
+            const result = (a - b) ** 2;
+            document.getElementById("result").innerHTML = 
+                `<i class="fas fa-check-circle"></i> (a - b)² = ${result}`;
+
+            updateSolution(a, b, result);
+            addToCalculationHistory(a, b, result);
+        }
+
+        function updateSolution(a, b, result) {
+            const stepList = document.getElementById("step-list");
+            stepList.innerHTML = `
+                <li>Step 1: Identify values: a = ${a}, b = ${b}</li>
+                <li>Step 2: Apply formula: (a - b)² = a² - 2ab + b²</li>
+                <li>Step 3: Calculate: ${a}² - 2(${a}×${b}) + ${b}²</li>
+                <li>Step 4: Simplify: ${a**2} - ${2 * a * b} + ${b**2} = ${result}</li>
+            `;
+            document.getElementById("example-text").textContent = `Example: (${a} - ${b})² = ${result}`;
+        }
+
+        function addToCalculationHistory(a, b, result) {
+            const historyList = document.getElementById("history-list");
+
+            // Remove "No history" message if it exists
+            const noHistoryMessage = document.querySelector(".no-history");
+            if (noHistoryMessage) {
+                noHistoryMessage.remove();
+            }
+
+            // Create a new history entry
+            const historyItem = document.createElement("p");
+            historyItem.innerHTML = `<i class="fas fa-check"></i> (${a} - ${b})² = ${result}`;
+            
+            // Add to history list
+            historyList.prepend(historyItem);
+        }
+
+        function clearHistory() {
+            const historyList = document.getElementById("history-list");
+            historyList.innerHTML = '<p class="no-history">Your calculation history will appear here.</p>';
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            window.calculateSquareDifference = calculateSquareDifference;
+            window.clearHistory = clearHistory;
+        });
+        function toggleAnswer(button) {
+    const answer = button.nextElementSibling; // Select the next element (the answer)
+    
+    if (answer.style.display === "none" || answer.style.display === "") {
+        answer.style.display = "block"; // Show answer
+        button.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Answer';
+    } else {
+        answer.style.display = "none"; // Hide answer
+        button.innerHTML = '<i class="fas fa-lightbulb"></i> Show Answer';
+    }
+}
+
+    </script>
+</body>
+
+</html>
